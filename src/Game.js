@@ -1,30 +1,22 @@
 import Enemy from './Enemy.js';
-import { ctx } from './canvas.js';
+import { ctx, WIDTH, HEIGHT } from './canvas.js';
+import { gameStates, mapCodes } from './helpers.js';
 
 export default class Game {
-  constructor(width, height, player) {
-    this.width = width;
-    this.height = height;
+  constructor(h, w, player) {
+    this.w = w;
+    this.h = h;
     this.player = player;
     this.mode;
-    this.enemies = [
-      new Enemy(0, 0, 5, 5),
-      new Enemy(10, 0, 5, 5),
-      new Enemy(20, 0, 5, 5),
-      new Enemy(50, 0, 5, 5)
-    ]
-  }
-
-  draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-    this.player.draw();
-
-    // this.enemies.forEach(e => e.draw());
   }
 
   update() {
     this.player.update();
+  }
 
-    // this.enemies.forEach(e => e.update());
+  draw() {
+    ctx.clearRect(0, 0, WIDTH, HEIGHT)
+    ctx.imageSmoothingEnabled = false; // remove blurring from resizing
+    this.player.draw();
   }
 }

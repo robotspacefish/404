@@ -1,20 +1,36 @@
-import { ctx } from './canvas.js';
+import { ctx, HEIGHT, WIDTH } from './canvas.js';
+import GameObject from './GameObject.js';
 
-export default class Player {
-  constructor(x, y, width, height) {
-    this.x = x;
-    this.y = y;
+export default class Player extends GameObject {
+  constructor(srcX, srcY, srcW, srcH, x, y, w, h, currentAnim) {
+    super(srcX, srcY, srcW, srcH, x, y, w, h, currentAnim);
     this.vx = 0;
     this.vy = 0;
+
     this.acceleration = 0.2;
+
     this.itemHeld;
-    this.width = width;
-    this.height = height;
+
     this.movement = {
       up: false,
       down: false,
       left: false,
       right: false
+    };
+
+  }
+
+  animate() {
+    this.tick++;
+
+    if (this.tick === this.currentAnim.tickCap) {
+      if (this.currentFrame === this.currentAnim.numOfFrames - 1) {
+        this.currentFrame = 0; // reset
+      } else {
+        this.currentFrame++;
+      }
+      this.srcX = this.currentFrame * 16 + this.currentAnim.srcX;
+      this.tick = 0;
     }
   }
 
@@ -26,11 +42,6 @@ export default class Player {
 
   give(recipient) {
 
-  }
-
-  draw() {
-    ctx.fillStyle = 'green';
-    ctx.fillRect(this.x, this.y, this.width, this.height)
   }
 
   update() {
@@ -45,7 +56,9 @@ export default class Player {
 
     // move
     this.x += this.vx;
-    this.y += this.vy
+    this.y += this.vy;
+
+    this.animate();
   }
 
 }
