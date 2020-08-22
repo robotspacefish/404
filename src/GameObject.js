@@ -29,6 +29,10 @@ export default class GameObject {
    * update
    */
 
+  checkForCollision(obj) {
+
+  }
+
   draw() {
     ctx.drawImage(
       tilesheet, this.srcX, this.srcY, this.srcW,
