@@ -6,7 +6,7 @@ import { playerAnims, tilesheet } from './animations.js';
 
 (function () {
   // GLOBALS =======================================================
-  const player = new Player(0, 0, 16, 16, WIDTH / 2 - 8, HEIGHT / 2 - 8, 16, 16, playerAnims.DOWN);
+  const player = new Player(0, 0, 16, 16, WIDTH / 2 - 8, HEIGHT / 2 - 8, 16, 16, 'player', playerAnims.DOWN);
   const game = new Game(800, 640, player);
 
   tilesheet.addEventListener('load', () => {
