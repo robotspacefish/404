@@ -52,4 +52,4 @@ export const playerAnims = {
 export const tilesheet = new Image();
 tilesheet.src = './assets/images/404_spritesheet_compressed.png';
 
-export const SPRITE_SCALE = 5;
+export const SPRITE_SCALE = 3;
