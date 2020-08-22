@@ -1,4 +1,5 @@
 import GameObject from './GameObject.js';
+import { WIDTH, HEIGHT } from './canvas.js';
 
 export default class Player extends GameObject {
   constructor(srcX, srcY, srcW, srcH, x, y, w, h, type, currentAnim) {
@@ -54,8 +55,10 @@ export default class Player extends GameObject {
     if (!this.movement.up && !this.movement.down) this.vy = 0;
 
     // move
-    this.x += this.vx;
-    this.y += this.vy;
+    this.x = Math.max(0, Math.min(this.x + this.vx, WIDTH - this.w));
+    this.y = Math.max(0, Math.min(this.y + this.vy, HEIGHT - this.h));
+    // this.x += this.vx;
+    // this.y += this.vy;
 
     this.animate();
   }
