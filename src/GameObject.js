@@ -3,7 +3,7 @@ import { ctx } from "./canvas.js";
 
 export default class GameObject {
   static all = [];
-  constructor(srcX, srcY, srcW, srcH, x, y, w, h, currentAnim) {
+  constructor(srcX, srcY, srcW, srcH, x, y, w, h, type, currentAnim = null) {
     this.srcX = srcX;
     this.srcY = srcY;
     this.srcW = srcW;
