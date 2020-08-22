@@ -14,6 +14,7 @@ export default class GameObject {
     this.h = h;
     this.tick = 0;
     this.currentFrame = 0;
+    this.type = type;
     this.currentAnim = currentAnim;
 
     GameObject.all.push(this);
