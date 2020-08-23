@@ -17,6 +17,18 @@ export default class Game {
 
   update() {
     this.player.update();
+    Collectible.all.forEach(c => {
+      if (c.isCollided(this.player) && !this.player.isHolding) {
+        console.log('collision')
+        c.isCarried = true;
+        this.player.isHolding = true;
+      }
+
+      if (c.isCarried) {
+        c.x = this.player.x + 8;
+        c.y = this.player.y - 18
+      }
+    })
   }
 
   draw() {

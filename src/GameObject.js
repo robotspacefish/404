@@ -20,6 +20,19 @@ export default class GameObject {
     GameObject.all.push(this);
   }
 
+  get centerX() {
+    return this.x + this.w / 2;
+  }
+
+  get centerY() {
+    return this.y + this.w / 2;
+  }
+
+  isCollided(obj) {
+    return Math.abs(this.centerX - obj.centerX) < this.w / 2 + obj.w / 2 &&
+      Math.abs(this.centerY - obj.centerY) < this.h / 2 + obj.h / 2;
+  }
+
   /**
    * TODO
    * collisions
@@ -29,17 +42,11 @@ export default class GameObject {
    * update
    */
 
-  checkForCollision(obj) {
-
-  }
-
   draw() {
     ctx.drawImage(
       tilesheet, this.srcX, this.srcY, this.srcW,
       this.srcH, this.x, this.y, this.w * SPRITE_SCALE, this.h * SPRITE_SCALE
     )
-
-
   }
 
 }

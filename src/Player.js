@@ -18,6 +18,7 @@ export default class Player extends GameObject {
       right: false
     };
 
+    this.isHolding = false;
   }
 
   animate() {
