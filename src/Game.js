@@ -1,30 +1,44 @@
 import Enemy from './Enemy.js';
-import { ctx } from './canvas.js';
+import GameObject from './GameObject.js';
+import Collectible from './Collectible.js';
+import { ctx, WIDTH, HEIGHT } from './canvas.js';
+import { gameStates, mapCodes } from './helpers.js';
+
+Collectible.createRandomFood();
 
 export default class Game {
-  constructor(width, height, player) {
-    this.width = width;
-    this.height = height;
+  constructor(h, w, player) {
+    this.w = w;
+    this.h = h;
     this.player = player;
     this.mode;
-    this.enemies = [
-      new Enemy(0, 0, 5, 5),
-      new Enemy(10, 0, 5, 5),
-      new Enemy(20, 0, 5, 5),
-      new Enemy(50, 0, 5, 5)
-    ]
-  }
 
-  draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-    this.player.draw();
-
-    // this.enemies.forEach(e => e.draw());
   }
 
   update() {
     this.player.update();
+    Collectible.all.forEach(c => {
+      if (c.isCollided(this.player) && !this.player.isHolding) {
+        console.log('collision')
+        c.isCarried = true;
+        this.player.isHolding = true;
+      }
 
-    // this.enemies.forEach(e => e.update());
+      if (c.isCarried) {
+        c.x = this.player.x + 8;
+        c.y = this.player.y - 18
+      }
+    })
+  }
+
+  draw() {
+    ctx.clearRect(0, 0, WIDTH, HEIGHT)
+    ctx.imageSmoothingEnabled = false; // remove blurring from resizing
+    // ctx.shadowColor = "rgba(100, 100, 100, 1)";
+    // ctx.shadowOffsetX = 0;
+    // ctx.shadowOffsetY = 5;
+    // ctx.shadowBlur = 3;
+
+    GameObject.all.forEach(obj => obj.draw())
   }
 }
