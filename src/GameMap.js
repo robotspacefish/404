@@ -1,4 +1,4 @@
-import { tilesheet } from './animations.js';
+import { tilesheet, SPRITE_SCALE } from './animations.js';
 import { mapCodes, gameMap } from './map.js';
 import { bgCtx } from "./canvas.js";
 

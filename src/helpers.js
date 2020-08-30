@@ -1,9 +1,3 @@
-const mapCodes = {
-  EMPTY: 0,
-  WALL: 1,
-  PLAYER: 2
-};
-
 const gameStates = {
   LOADING: 0,
   INIT: 1,
@@ -12,5 +6,5 @@ const gameStates = {
   GAMEOVER: 4
 
 }
-export { gameStates, mapCodes };
+export { gameStates };
 
