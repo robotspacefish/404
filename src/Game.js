@@ -31,19 +31,19 @@ export default class Game {
       }
 
       if (c.isCarried) {
-        c.x = this.player.x + 8;
-        c.y = this.player.y - 20
+        c.x = this.player.x + this.player.w / 2 - c.w / 2;
+        c.y = this.player.y - c.h + 2
       }
     })
   }
 
   draw() {
     this.gameMap.draw();
-    // ctx.clearRect(0, 0, WIDTH(), HEIGHT());
+    ctx.clearRect(0, 0, WIDTH(), HEIGHT());
     // ctx.shadowColor = "rgba(100, 100, 100, 1)";
     // ctx.shadowOffsetX = 0;
     // ctx.shadowOffsetY = 5;
     // ctx.shadowBlur = 3;
-    // GameObject.all.forEach(obj => obj.draw())
+    GameObject.all.forEach(obj => obj.draw())
   }
 }
