@@ -25,14 +25,6 @@ export default class Collectible extends GameObject {
     return new Collectible(131, 19, 10, 10, x, y, 10, 10);
   }
 
-  // static createPizza(x, y) {
-  //   return new Collectible(147, 19, 10, 10, x, y, 10, 10);
-  // }
-
-  // static createCookie(x, y) {
-  //   return new Collectible(163, 19, 10, 10, x, y, 10, 10);
-  // }
-
   static createTaco(x, y) {
     return new Collectible(179, 19, 10, 7, x, y, 10, 7);
   }
