@@ -2,17 +2,23 @@ import Enemy from './Enemy.js';
 import GameObject from './GameObject.js';
 import Collectible from './Collectible.js';
 import { ctx, WIDTH, HEIGHT } from './canvas.js';
-import { gameStates, mapCodes } from './helpers.js';
+// import { gameStates } from './helpers.js';
+import { gameMap, mapCodes } from './map.js';
+import { SPRITE_SCALE, tilesheet } from './animations.js';
+import GameMap from './GameMap.js';
 
-Collectible.createRandomFood();
+Collectible.createRandomFood(100, 150)
 
 export default class Game {
-  constructor(h, w, player) {
-    this.w = w;
-    this.h = h;
+  constructor(player) {
     this.player = player;
     this.mode;
+    this.bgSprites = [];
+    this.gameMap = new GameMap(16);
+  }
 
+  get tileSize() {
+    return 16 * SPRITE_SCALE;
   }
 
   update() {
@@ -26,19 +32,18 @@ export default class Game {
 
       if (c.isCarried) {
         c.x = this.player.x + 8;
-        c.y = this.player.y - 18
+        c.y = this.player.y - 20
       }
     })
   }
 
   draw() {
-    ctx.clearRect(0, 0, WIDTH, HEIGHT)
-    ctx.imageSmoothingEnabled = false; // remove blurring from resizing
+    this.gameMap.draw();
+    // ctx.clearRect(0, 0, WIDTH(), HEIGHT());
     // ctx.shadowColor = "rgba(100, 100, 100, 1)";
     // ctx.shadowOffsetX = 0;
     // ctx.shadowOffsetY = 5;
     // ctx.shadowBlur = 3;
-
-    GameObject.all.forEach(obj => obj.draw())
+    // GameObject.all.forEach(obj => obj.draw())
   }
 }
