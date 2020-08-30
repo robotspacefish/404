@@ -18,14 +18,14 @@ export default class Collectible extends GameObject {
   }
 
   static types = [
-    Collectible.createDonut, Collectible.createPizza, Collectible.createCookie, Collectible.createTaco
+    Collectible.createDonut, Collectible.createTaco
   ]
 
   static createDonut(x, y) {
-    return new Collectible(131, 19, 10, 10, x, y, 10, 10);
+    return new Collectible(259, 0, 10, 10, x, y, 10, 10);
   }
 
   static createTaco(x, y) {
-    return new Collectible(179, 19, 10, 7, x, y, 10, 7);
+    return new Collectible(275, 0, 10, 7, x, y, 10, 7);
   }
 }
