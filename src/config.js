@@ -1,23 +1,16 @@
-import { canvas } from './canvas.js';
-
 export const config = {
   width: 224,
+  // width: 288,
   height: 288,
   scale: 4
 };
 
-export function resize() {
+export function resize(canvas) {
   const windowWidth = window.innerWidth;
   const windowHeight = window.innerHeight;
-  const windowRatio = windowWidth / windowHeight;
-  const gameRatio = config.width / config.height;
 
-  if (windowRatio < gameRatio) {
-    canvas.width = windowWidth < config.width ? windowWidth : config.width;
-    canvas.height = windowHeight < config.height ? windowHeight : config.height;
-  } else {
-    canvas.width = (windowHeight * gameRatio);
-    canvas.height = windowHeight;
-  }
-  console.log('canvas:', canvas.width, canvas.height)
+  const scale = Math.min(Math.floor(windowWidth / config.width), 3);
+  canvas.width = config.width * (scale || 1);
+  canvas.height = config.height * (scale || 1);
+  console.log(canvas.width, canvas.height)
 }

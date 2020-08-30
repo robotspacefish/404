@@ -3,7 +3,7 @@ import Player from './Player.js';
 import { canvas, bgCanvas, WIDTH, HEIGHT } from './canvas.js';
 import { gameStates } from './helpers.js';
 import { playerAnims, tilesheet } from './animations.js';
-import { resize, config } from './config.js';
+import { resize } from './config.js';
 
 (function () {
   // GLOBALS =======================================================
@@ -13,7 +13,7 @@ import { resize, config } from './config.js';
   tilesheet.addEventListener('load', () => {
     // game.mode == INIT;
     // START =========================================================
-    requestAnimationFrame(gameLoop);
+    // requestAnimationFrame(gameLoop);
   }, false);
 
 
@@ -68,16 +68,18 @@ import { resize, config } from './config.js';
   });
 
   window.addEventListener('load', function () {
-    canvas.width = config.width;
-    canvas.height = config.height;
-    bgCanvas.width = config.width;
-    bgCanvas.height = config.height;
+    // canvas.width = config.width;
+    // canvas.height = config.height;
+    // bgCanvas.width = config.width;
+    // bgCanvas.height = config.height;
     // console.log(WIDTH(), HEIGHT())
-    // resize();
-    // window.addEventListener('resize', () => {
-    //   resize();
-    //   console.log(WIDTH(), HEIGHT())
-    // }, false);
+    resize(canvas);
+    resize(bgCanvas);
+
+    window.addEventListener('resize', () => {
+      resize(canvas);
+      resize(bgCanvas);
+    }, false);
   }, false)
 
 })()
