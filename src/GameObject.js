@@ -43,9 +43,13 @@ export default class GameObject {
    */
 
   draw() {
+    // ctx.drawImage(
+    //   tilesheet, this.srcX, this.srcY, this.srcW,
+    //   this.srcH, this.x, this.y, this.w * SPRITE_SCALE, this.h * SPRITE_SCALE
+    // )
     ctx.drawImage(
       tilesheet, this.srcX, this.srcY, this.srcW,
-      this.srcH, this.x, this.y, this.w * SPRITE_SCALE, this.h * SPRITE_SCALE
+      this.srcH, this.x, this.y, this.w, this.h
     )
   }
 
