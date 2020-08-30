@@ -22,10 +22,10 @@ export default class Collectible extends GameObject {
   ]
 
   static createDonut(x, y) {
-    return new Collectible(259, 0, 10, 10, x, y, 10, 10);
+    return new Collectible(259, 3, 10, 10, x, y, 10, 10);
   }
 
   static createTaco(x, y) {
-    return new Collectible(275, 0, 10, 7, x, y, 10, 7);
+    return new Collectible(275, 4, 10, 7, x, y, 10, 7);
   }
 }
