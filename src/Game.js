@@ -1,13 +1,13 @@
 import Enemy from './Enemy.js';
 import GameObject from './GameObject.js';
-import Collectible from './Collectible.js';
-import { ctx, WIDTH, HEIGHT } from './canvas.js';
+import Food from './Food.js';
+import { ctx, bgCtx, WIDTH, HEIGHT } from './canvas.js';
 // import { gameStates } from './helpers.js';
 import { gameMap, mapCodes } from './map.js';
 import { SPRITE_SCALE, tilesheet } from './animations.js';
 import GameMap from './GameMap.js';
 
-Collectible.createRandomFood(100, 150)
+// Food.createRandomFood(100, 150)
 
 export default class Game {
   constructor(player) {
@@ -23,7 +23,7 @@ export default class Game {
 
   update() {
     this.player.update();
-    Collectible.all.forEach(c => {
+    Food.all.forEach(c => {
       if (c.isCollided(this.player) && !this.player.isHolding) {
         console.log('collision')
         c.isCarried = true;
