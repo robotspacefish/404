@@ -1,5 +1,4 @@
 import GameObject from './GameObject.js';
-// import { WIDTH, HEIGHT } from './canvas.js';
 
 export default class Player extends GameObject {
   constructor(srcX, srcY, srcW, srcH, x, y, w, h, type, currentAnim) {
