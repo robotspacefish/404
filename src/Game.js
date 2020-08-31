@@ -7,7 +7,7 @@ import { gameMap, mapCodes } from './map.js';
 import { SPRITE_SCALE, tilesheet } from './animations.js';
 import GameMap from './GameMap.js';
 
-// Food.createRandomFood(100, 150)
+Food.spawn()
 
 export default class Game {
   constructor(player) {
