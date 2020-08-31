@@ -1,5 +1,4 @@
 import GameObject from './GameObject.js';
-import { WIDTH, HEIGHT } from './canvas.js';
 
 export default class Player extends GameObject {
   constructor(srcX, srcY, srcW, srcH, x, y, w, h, type, currentAnim) {
@@ -48,11 +47,11 @@ export default class Player extends GameObject {
   update() {
     if (this.movement.right && !this.movement.left) this.vx += this.acceleration;
     if (this.movement.left && !this.movement.right) this.vx -= this.acceleration;
-    if (!this.movement.left && !this.movement.right) this.vx = 0;
 
     if (this.movement.down && !this.movement.up) this.vy += this.acceleration;
     if (this.movement.up && !this.movement.down) this.vy -= this.acceleration;
 
+    if (!this.movement.left && !this.movement.right) this.vx = 0;
     if (!this.movement.up && !this.movement.down) this.vy = 0;
 
     // move

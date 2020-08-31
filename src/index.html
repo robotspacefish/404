@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404</title>
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      background-color: black;
+    }
+
+    #game {
+      top: 50%;
+      left: 50%;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      /* border: 1px solid #82919A; */
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    #canvas {
+      z-index: 2;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="game">
+    <canvas id="canvas" height="288" width="224"></canvas>
+    <canvas id="bg-canvas" height="288" width="224"></canvas>
+  </div>
+
+  <script src="./main.js"></script>
+</body>
+
+</html>

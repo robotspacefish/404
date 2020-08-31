@@ -2,3 +2,6 @@ assets
 lib
 notes.md
 .DS_Store
+node_modules
+dist
+.cache
