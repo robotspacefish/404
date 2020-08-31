@@ -3,19 +3,12 @@ import Player from './Player.js';
 import { canvas, bgCanvas, WIDTH, HEIGHT } from './canvas.js';
 import { gameStates } from './helpers.js';
 import { playerAnims, tilesheet } from './animations.js';
-import { resize } from './config.js';
+import { resize, config } from './config.js';
 
 (function () {
   // GLOBALS =======================================================
-  const player = new Player(0, 0, 16, 16, WIDTH() / 2 - 8, HEIGHT() / 2 - 8, 16, 16, 'player', playerAnims.DOWN);
+  const player = new Player(0, 0, 16, 16, null, null, 16, 16, 'player', playerAnims.DOWN);
   const game = new Game(player);
-
-  tilesheet.addEventListener('load', () => {
-    // game.mode == INIT;
-    // START =========================================================
-    // requestAnimationFrame(gameLoop);
-  }, false);
-
 
   function gameLoop() {
     game.update();
@@ -68,11 +61,6 @@ import { resize } from './config.js';
   });
 
   window.addEventListener('load', function () {
-    // canvas.width = config.width;
-    // canvas.height = config.height;
-    // bgCanvas.width = config.width;
-    // bgCanvas.height = config.height;
-    // console.log(WIDTH(), HEIGHT())
     resize(canvas);
     resize(bgCanvas);
 
@@ -81,5 +69,12 @@ import { resize } from './config.js';
       resize(bgCanvas);
     }, false);
   }, false)
+
+  tilesheet.addEventListener('load', () => {
+    // game.mode == INIT;
+    // START =========================================================
+    requestAnimationFrame(gameLoop);
+  }, false);
+
 
 })()
