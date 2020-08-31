@@ -1,6 +1,7 @@
 import { tilesheet, SPRITE_SCALE } from './animations.js';
 import { mapCodes, gameMap } from './map.js';
 import { bgCtx } from "./canvas.js";
+import { config } from '/config.js';
 
 export default class GameMap {
   constructor(tileSize) {
@@ -48,6 +49,7 @@ export default class GameMap {
 
   draw() {
     if (!this.isDrawn) {
+      // console.log('drawing')
       const { FLOOR, WALL, TACO_COURT, DONUT_COURT, ENEMY_SPAWN } = mapCodes;
       let ts = this.tileSize, cell;
       for (let row = 0; row < gameMap[0].length; row++) {
@@ -69,7 +71,7 @@ export default class GameMap {
               cell = this.enemySpawn;
               break;
           }
-          bgCtx.drawImage(tilesheet, cell.srcX, cell.srcY, ts, ts, row * ts, col * ts, ts, ts);
+          bgCtx.drawImage(tilesheet, cell.srcX, cell.srcY, ts, ts, row * ts * config.scale, col * ts * config.scale, ts * config.scale, ts * config.scale);
         }
       }
 
