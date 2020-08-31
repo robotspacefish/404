@@ -1,5 +1,6 @@
 import { tilesheet, SPRITE_SCALE } from './animations.js';
 import { ctx } from "./canvas.js";
+import { config } from './config.js';
 
 export default class GameObject {
   static all = [];
@@ -10,14 +11,22 @@ export default class GameObject {
     this.srcH = srcH;
     this.x = x;
     this.y = y;
-    this.w = w;
-    this.h = h;
+    this._w = w;
+    this._h = h;
     this.tick = 0;
     this.currentFrame = 0;
     this.type = type;
     this.currentAnim = currentAnim;
 
     GameObject.all.push(this);
+  }
+
+  get w() {
+    return this._w * config.scale;
+  }
+
+  get h() {
+    return this._h * config.scale;
   }
 
   get centerX() {
