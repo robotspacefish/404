@@ -71,7 +71,13 @@ export default class GameMap {
               cell = this.enemySpawn;
               break;
           }
-          bgCtx.drawImage(tilesheet, cell.srcX, cell.srcY, ts, ts, row * ts * config.scale, col * ts * config.scale, ts * config.scale, ts * config.scale);
+          bgCtx.drawImage(
+            tilesheet, cell.srcX, cell.srcY, ts, ts,
+            row * ts * config.scale,
+            col * ts * config.scale,
+            ts * config.scale,
+            ts * config.scale
+          );
         }
       }
 
