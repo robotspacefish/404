@@ -1,7 +1,3 @@
-import { tilesheet, SPRITE_SCALE } from './animations.js';
-import { ctx } from "./canvas.js";
-import { config } from './config.js';
-
 export default class GameObject {
   static all = [];
   constructor(srcX, srcY, srcW, srcH, x, y, w, h, type, currentAnim = null) {
