@@ -1,21 +1,27 @@
 import Game from './Game.js';
-import Player from './Player.js';
-import { canvas, bgCanvas, ctx, bgCtx, WIDTH, HEIGHT } from './canvas.js';
-import { gameStates } from './helpers.js';
-import { playerAnims, tilesheet } from './animations.js';
-import { resize, config } from './config.js';
-import { renderMousePos } from './mouse'
-
+import { playerAnims } from './animations.js';
 
 // (function () {
 // GLOBALS =======================================================
-const player = new Player(0, 0, 16, 16, 0, 0, 16, 16, 'player', playerAnims.DOWN);
-const game = new Game(player);
+const tilesheet = new Image();
+tilesheet.src = './assets/images/404_spritesheet_compressed.png';
+
+const game = new Game(document.getElementById('canvas'));
+// const config = {
+//   width: 224,
+//   // width: 288,
+//   height: 288,
+//   scale: 1
+// };
+
+// document.querySelector('body').addEventListener('mousemove', e => { mousemoveHandler(e, game.canvas) }, false);
 
 function gameLoop() {
   game.update();
-  game.draw();
-  renderMousePos();
+  game.draw(tilesheet);
+
+  // renderMousePos(game.ctx); // debug
+
   requestAnimationFrame(gameLoop, canvas);
 }
 
@@ -64,12 +70,11 @@ window.addEventListener('keyup', e => {
 });
 
 window.addEventListener('load', function () {
-  resize(canvas, ctx);
-  resize(bgCanvas, bgCtx);
+  game.resize();
+  game.ctx.imageSmoothingEnabled = false; // remove blurring from resizing
 
   window.addEventListener('resize', () => {
-    resize(canvas, ctx);
-    resize(bgCanvas, bgCtx);
+    game.resize();
   }, false);
 }, false)
 

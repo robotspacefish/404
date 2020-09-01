@@ -1,6 +1,4 @@
 import GameObject from './GameObject.js';
-import gameMap from './map.js';
-import { config } from './config.js';
 
 export default class Food extends GameObject {
   static all = [];
@@ -25,12 +23,7 @@ export default class Food extends GameObject {
   ]
 
   static createDonut() {
-    // return new Food(259, 3, 10, 10, 115 * config.scale, 134 * config.scale, 10 * config.scale, 10 * config.scale);
-    const scale = config.scale;
     return new Food(259, 6, 10, 10, 115, 134, 10, 10);
-
-
-
   }
 
   static createTaco() {

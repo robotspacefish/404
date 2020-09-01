@@ -48,8 +48,3 @@ export const playerAnims = {
     tickCap: 28
   }
 };
-
-export const tilesheet = new Image();
-tilesheet.src = './assets/images/404_spritesheet_compressed.png';
-
-export const SPRITE_SCALE = 3;

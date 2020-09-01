@@ -1,7 +1,3 @@
-import { tilesheet, SPRITE_SCALE } from './animations.js';
-import { ctx } from "./canvas.js";
-import { config } from './config.js';
-
 export default class GameObject {
   static all = [];
   constructor(srcX, srcY, srcW, srcH, x, y, w, h, type, currentAnim = null) {
@@ -22,19 +18,19 @@ export default class GameObject {
   }
 
   get w() {
-    return this._w * config.scale;
+    return this._w;
   }
 
   get h() {
-    return this._h * config.scale;
+    return this._h;
   }
 
   get x() {
-    return this._x * config.scale;
+    return this._x;
   }
 
   get y() {
-    return this._y * config.scale;
+    return this._y;
   }
 
   set x(pos) {
@@ -68,17 +64,13 @@ export default class GameObject {
    * update
    */
 
-  draw() {
-    // ctx.drawImage(
-    //   tilesheet, this.srcX, this.srcY, this.srcW,
-    //   this.srcH, this.x, this.y, this.w * SPRITE_SCALE, this.h * SPRITE_SCALE
-    // )
+  draw(ctx, scale, tilesheet) {
     ctx.drawImage(
       tilesheet, this.srcX, this.srcY, this.srcW, this.srcH,
-      this.x,
-      this.y,
-      this.w,
-      this.h
+      this.x * scale,
+      this.y * scale,
+      this.w * scale,
+      this.h * scale
     )
   }
 
