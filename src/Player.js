@@ -44,14 +44,11 @@ export default class Player extends GameObject {
 
   }
 
-  update() {
-    let height = HEIGHT();
-    let width = WIDTH();
-    if (debug) {
-      debug = false;
-      console.log('static:', this)
-      console.log(config)
-    }
+  update(height, width) {
+    // if (debug) {
+    //   debug = false;
+    //   console.log('static:', this)
+    // }
     // if (this.movement.right && !this.movement.left) this.vx += this.acceleration;
     // if (this.movement.left && !this.movement.right) this.vx -= this.acceleration;
     // if (this.movement.down && !this.movement.up) {
