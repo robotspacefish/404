@@ -1,21 +1,26 @@
 import Game from './Game.js';
-
-import { canvas, bgCanvas, ctx, bgCtx, WIDTH, HEIGHT } from './canvas.js';
-import { gameStates } from './helpers.js';
-import { tilesheet } from './animations.js';
-import { resize, config } from './config.js';
-import { renderMousePos } from './mouse'
-
+import { playerAnims } from './animations.js';
 
 // (function () {
 // GLOBALS =======================================================
-const game = new Game();
+const tilesheet = new Image();
+tilesheet.src = './assets/images/404_spritesheet_compressed.png';
+
+const game = new Game(document.getElementById('canvas'));
+// const config = {
+//   width: 224,
+//   // width: 288,
+//   height: 288,
+//   scale: 1
+// };
+
+// document.querySelector('body').addEventListener('mousemove', e => { mousemoveHandler(e, game.canvas) }, false);
 
 function gameLoop() {
   game.update();
-  game.draw();
+  game.draw(tilesheet);
 
-  renderMousePos(); // debug
+  // renderMousePos(game.ctx); // debug
 
   requestAnimationFrame(gameLoop, canvas);
 }
