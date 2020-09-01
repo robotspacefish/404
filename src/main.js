@@ -1,21 +1,22 @@
 import Game from './Game.js';
-import Player from './Player.js';
+
 import { canvas, bgCanvas, ctx, bgCtx, WIDTH, HEIGHT } from './canvas.js';
 import { gameStates } from './helpers.js';
-import { playerAnims, tilesheet } from './animations.js';
+import { tilesheet } from './animations.js';
 import { resize, config } from './config.js';
 import { renderMousePos } from './mouse'
 
 
 // (function () {
 // GLOBALS =======================================================
-const player = new Player(0, 0, 16, 16, 0, 0, 16, 16, 'player', playerAnims.DOWN);
-const game = new Game(player);
+const game = new Game();
 
 function gameLoop() {
   game.update();
   game.draw();
-  renderMousePos();
+
+  renderMousePos(); // debug
+
   requestAnimationFrame(gameLoop, canvas);
 }
 

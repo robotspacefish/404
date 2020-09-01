@@ -1,17 +1,17 @@
-import Enemy from './Enemy.js';
-import GameObject from './GameObject.js';
+import Player from './Player.js';
 import Food from './Food.js';
-import { ctx, bgCtx, WIDTH, HEIGHT } from './canvas.js';
-// import { gameStates } from './helpers.js';
-import { gameMap, mapCodes } from './map.js';
-import { SPRITE_SCALE, tilesheet } from './animations.js';
+import GameObject from './GameObject.js';
 import GameMap from './GameMap.js';
+import { ctx, bgCtx, WIDTH, HEIGHT } from './canvas.js';
+import Enemy from './Enemy.js';
+import { gameMap, mapCodes } from './map.js';
+import { SPRITE_SCALE, tilesheet, playerAnims } from './animations.js';
 
 Food.spawn()
 
 export default class Game {
-  constructor(player) {
-    this.player = player;
+  constructor() {
+    this.player = new Player(0, 0, 16, 16, 0, 0, 16, 16, 'player', playerAnims.DOWN);
     this.mode;
     this.bgSprites = [];
     this.gameMap = new GameMap(16);
