@@ -18,19 +18,19 @@ export default class GameObject {
   }
 
   get w() {
-    return this._w * config.scale;
+    return this._w;
   }
 
   get h() {
-    return this._h * config.scale;
+    return this._h;
   }
 
   get x() {
-    return this._x * config.scale;
+    return this._x;
   }
 
   get y() {
-    return this._y * config.scale;
+    return this._y;
   }
 
   set x(pos) {
