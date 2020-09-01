@@ -65,12 +65,11 @@ window.addEventListener('keyup', e => {
 });
 
 window.addEventListener('load', function () {
-  resize(canvas, ctx);
-  resize(bgCanvas, bgCtx);
+  game.resize();
+  game.ctx.imageSmoothingEnabled = false; // remove blurring from resizing
 
   window.addEventListener('resize', () => {
-    resize(canvas, ctx);
-    resize(bgCanvas, bgCtx);
+    game.resize();
   }, false);
 }, false)
 
