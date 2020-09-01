@@ -7,7 +7,9 @@ export const config = {
 
 const gameDiv = document.getElementById('game');
 
-export function resize(canvas) {
+export function resize(canvas, ctx) {
+  ctx.imageSmoothingEnabled = false; // remove blurring from resizing
+
   const windowWidth = window.innerWidth;
   // const windowHeight = window.innerHeight;
 

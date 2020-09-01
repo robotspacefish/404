@@ -18,7 +18,7 @@ export default class Game {
   }
 
   get tileSize() {
-    return 16 * SPRITE_SCALE;
+    return 16;
   }
 
   update() {
@@ -38,8 +38,6 @@ export default class Game {
   }
 
   draw() {
-    ctx.imageSmoothingEnabled = false; // remove blurring from resizing
-    bgCtx.imageSmoothingEnabled = false; // remove blurring from resizing
     this.gameMap.draw();
     ctx.clearRect(0, 0, WIDTH(), HEIGHT());
     // ctx.shadowColor = "rgba(100, 100, 100, 1)";
