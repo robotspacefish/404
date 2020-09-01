@@ -1,7 +1,9 @@
 import GameObject from './GameObject.js';
 import { WIDTH, HEIGHT } from './canvas.js';
 import { config } from './config.js'
-let debug = true;
+
+let debug = false;
+
 export default class Player extends GameObject {
   constructor(srcX, srcY, srcW, srcH, x, y, w, h, type, currentAnim) {
     super(srcX, srcY, srcW, srcH, x, y, w, h, type, currentAnim);
@@ -87,19 +89,22 @@ export default class Player extends GameObject {
     if (this.x < 0) {
       this.x = 0;
       this.movement.left = false;
+      this.movement.right = false;
     };
     if (this.y < 0) {
       this.y = 0;
-      this.movement.right = false;
-    };
-
-    if (this.x + this.w > WIDTH()) {
-      this.x = WIDTH() - this.w;
       this.movement.up = false;
     };
-    if (this.y + this.h > HEIGHT()) {
+
+    if (this.x + this.w > width) {
+      console.log('go back left', 'width:', width, "player x:", this.x)
       // debugger
-      this.y = HEIGHT() - this.h;
+      this._x = width - this.w;
+      this.movement.right = false;
+    };
+    if (this.y + this.h > height) {
+      // debugger
+      this.y = height - this.h;
       this.movement.down = false;
     };
 
