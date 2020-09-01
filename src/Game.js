@@ -15,6 +15,9 @@ export default class Game {
     this.mode;
     this.bgSprites = [];
     this.gameMap = new GameMap(16);
+    this.canvas = canvas;
+    this.ctx = canvas.getContext('2d');
+    this.scale = 1;
   }
 
   get tileSize() {
