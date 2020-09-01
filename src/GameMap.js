@@ -44,7 +44,7 @@ export default class GameMap {
     this.draw();
   }
 
-  draw() {
+  draw(ctx, scale, tilesheet) {
     // if (!this.isDrawn) {
     // console.log('drawing')
     const { FLOOR, WALL, TACO_COURT, DONUT_COURT, ENEMY_SPAWN } = mapCodes;
@@ -68,12 +68,12 @@ export default class GameMap {
             cell = this.enemySpawn;
             break;
         }
-        bgCtx.drawImage(
+        ctx.drawImage(
           tilesheet, cell.srcX, cell.srcY, ts, ts,
-          row * ts * config.scale,
-          col * ts * config.scale,
-          ts * config.scale,
-          ts * config.scale
+          row * ts * scale,
+          col * ts * scale,
+          ts * scale,
+          ts * scale
         );
       }
     }
