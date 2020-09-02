@@ -8,10 +8,10 @@ export default class Enemy extends GameObject {
 
   constructor(srcX, srcY, srcW, srcH, x, y, w, h, type, currentAnim) {
     super(srcX, srcY, srcW, srcH, x, y, w, h, type, currentAnim);
-    this.vx = 0;
-    this.vy = 0;
-
     this.speed = 2;
+    this.vx = 0;
+    this.vy = this.speed;
+
     this.want;
 
     Enemy.all.push(this);
@@ -79,8 +79,60 @@ export default class Enemy extends GameObject {
     enemy.want = t.want;
   }
 
-  update() {
+  changeDirection() {
+    const UP = 1, DOWN = 2, LEFT = 3, RIGHT = 4;
+    const direction = Math.ceil(Math.random() * 7);
 
+    if (direction < 5) {
+      switch (direction) {
+        case RIGHT:
+          this.vx = this.speed;
+          this.vy = 0;
+          break;
+        case LEFT:
+          this.vx = -this.speed;
+          this.vy = 0;
+          break;
+        case UP:
+          this.vx = 0;
+          this.vy = -this.speed;
+          break;
+        case DOWN:
+          this.vx = 0;
+          this.vy = this.speed;
+      }
+    }
+  }
+
+  update(width, height) {
+    this.x += this.vx;
+    this.y += this.vy;
+
+    if (Math.floor(this.x) % 16 === 0 && Math.floor(this.y) % 16 === 0) {
+      // if it's at a corner, change it's direction
+      console.log('corner')
+      this.changeDirection();
+    }
+
+    if (this.x < 0) {
+      this.x = 0;
+      this.changeDirection();
+    }
+
+    if (this.y < 0) {
+      this.y = 0;
+      this.changeDirection();
+    }
+
+    if (this.x + this.w > width) {
+      this.x = width - this.w;
+      this.changeDirection();
+    }
+
+    if (this.y + this.h > height) {
+      this.y = height - this.h;
+      this.changeDirection();
+    }
   }
 
 }
