@@ -4,13 +4,15 @@ import GameObject from './GameObject.js';
 import GameMap from './GameMap.js';
 import Enemy from './Enemy.js';
 import { playerAnims } from './animations.js';
+import { mapCodes, objectMap } from './map.js';
 
 const gameDiv = document.getElementById('game');
 Food.spawn();
 
 export default class Game {
   constructor(canvas) {
-    this.player = new Player(0, 0, 16, 16, 0, 0, 16, 16, 'player', playerAnims.DOWN);
+    this.player = new Player(0, 0, 16, 16, null, null, 16, 16, 'player', playerAnims.DOWN);
+    this.spawnPlayer();
     // this.mode;
     // this.bgSprites = [];
     this.gameMap = new GameMap(16);
@@ -24,6 +26,17 @@ export default class Game {
     this.height = 288;
     this.maxWidth = 224 * 3;
     this.maxHeight = 228 * 3;
+  }
+
+  spawnPlayer() {
+    for (let row = 0; row < objectMap[0].length; row++) {
+      for (let col = 0; col < objectMap.length; col++) {
+        if (objectMap[col][row] === mapCodes.PLAYER) {
+          this.player.x = row * 16;
+          this.player.y = col * 16;
+        }
+      }
+    }
   }
 
   resize() {
