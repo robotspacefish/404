@@ -112,6 +112,7 @@ export default class Game {
 
   update() {
     this.player.update(this.canvasHeight, this.canvasWidth);
+    let foodCarriedIndex;
 
     Wall.all.forEach(w => {
       if (w.isCollided(this.player)) {
@@ -120,17 +121,18 @@ export default class Game {
       }
     })
 
-    Food.all.forEach(c => {
-      if (c.isCollided(this.player) && !this.player.isHolding) {
+    Food.all.forEach((f, i) => {
+      if (f.isCollided(this.player) && !this.player.isHolding) {
         console.log('collision')
-        c.isCarried = true;
+        f.isCarried = true;
         this.player.isHolding = true;
-        this.player.itemHeld = c.type;
+        this.player.itemHeld = f.type;
       }
 
-      if (c.isCarried) {
-        c.x = this.player.x + this.player.w / 2 - c.w / 2;
-        c.y = this.player.y - c.h + 2
+      if (f.isCarried) {
+        foodCarriedIndex = i;
+        f.x = this.player.x + this.player.w / 2 - f.w / 2;
+        f.y = this.player.y - f.h + 2
       }
     })
 
@@ -155,7 +157,9 @@ export default class Game {
           // if player has correct food item, kill enemy
           e.kill(i);
           // destroy food
-
+          Food.destroy(foodCarriedIndex);
+          this.player.isHolding = false;
+          this.player.itemHeld = null;
           // increase points;
           this.points++;
         } else {
