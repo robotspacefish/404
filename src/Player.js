@@ -57,19 +57,19 @@ export default class Player extends GameObject {
     // }
     // if (this.movement.up && !this.movement.down) this.vy -= this.acceleration;
     if (this.movement.right && !this.movement.left) {
-      console.log('right:', this)
+      // console.log('right:', this)
       this.vx = this.acceleration;
     }
     else if (this.movement.left && !this.movement.right) {
-      console.log('left:', this)
+      // console.log('left:', this)
       this.vx = -this.acceleration;
     }
     else if (this.movement.down && !this.movement.up) {
-      console.log('down:', this)
+      // console.log('down:', this)
       this.vy = this.acceleration;
     }
     else if (this.movement.up && !this.movement.down) {
-      console.log('up:', this)
+      // console.log('up:', this)
       this.vy = -this.acceleration;
     }
 
@@ -90,7 +90,7 @@ export default class Player extends GameObject {
     };
 
     if (this.x + this.w > width) {
-      console.log('go back left', 'width:', width, "player x:", this.x)
+      // console.log('go back left', 'width:', width, "player x:", this.x)
       // debugger
       this._x = width - this.w;
       this.movement.right = false;
