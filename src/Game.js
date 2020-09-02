@@ -14,6 +14,8 @@ export default class Game {
     this.player = new Player(0, 0, 16, 16, null, null, 16, 16, 'player', playerAnims.DOWN);
     this.spawnPlayer();
 
+    this.points = 0;
+
     // this.mode;
     // this.bgSprites = [];
     this.gameMap = new GameMap(16);
@@ -153,6 +155,9 @@ export default class Game {
           // if player has correct food item, kill enemy
           e.kill(i);
           // destroy food
+
+          // increase points;
+          this.points++;
         } else {
           // kill player
         }
