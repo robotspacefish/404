@@ -17,66 +17,27 @@ export default class Enemy extends GameObject {
     Enemy.all.push(this);
   }
 
-  static type1() {
-    const anims = {
-      DOWN: {
-        srcX: 0,
-        srcY: 16,
-      },
-      UP: {
-        srcX: 32,
-        srcY: 16,
-      },
-      RIGHT_SIDE: {
-        srcX: 64,
-        srcY: 16,
-      },
-      LEFT_SIDE: {
-        srcX: 96,
-        srcY: 16,
-      }
-    };
-    return {
-      srcX: 0,
-      srcY: 16,
-      want: 'taco',
-      anims
-    }
-  }
-
-  static type2() {
-    const anims = {
-      DOWN: {
-        srcX: 128,
-        srcY: null,
-      },
-      UP: {
-        srcX: 160,
-        srcY: null,
-      },
-      RIGHT_SIDE: {
-        srcX: 192,
-        srcY: null,
-      },
-      LEFT_SIDE: {
-        srcX: 224,
-        srcY: null,
-      }
-    };
-
-    return {
-      srcX: 128,
-      srcY: 16,
-      want: 'donut',
-      anims
-    }
-  }
-
   static spawn(x = 0, y = 0) {
-    const t = Math.random() > 0.5 ? Enemy.type1() : Enemy.type2();
-
-    const enemy = new Enemy(t.srcX, t.srcY, 16, 16, x, y, 16, 16, 'enemy', t.anims.DOWN);
-    enemy.want = t.want;
+    let v;
+    if (Math.random() > 0.5) {
+      v = {
+        want: 'taco',
+        anims: enemy1Anims
+      }
+    } else {
+      v = {
+        want: 'donut',
+        anims: enemy2Anims
+      }
+    }
+    const spawnPointIndex = Math.random() * EnemySpawn.all.length;
+    // const spawnPoint = EnemySpawn.all[spawnPointIndex];
+    // debugger
+    // const enemy = new Enemy(t.srcX, t.srcY, 16, 16, spawnPoint.x, spawnPoint.y, 16, 16, 'enemy', t.anims.DOWN);
+    const enemy = new Enemy(v.anims.DOWN.srcX, v.anims.DOWN.srcY, 16, 16, x, y, 16, 16, 'enemy', v.anims.DOWN);
+    enemy.want = v.want;
+    enemy.isSpawned = true;
+    enemy.anims = v.anims;
   }
 
   changeDirection() {
