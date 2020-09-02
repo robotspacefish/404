@@ -8,7 +8,7 @@ export default class Enemy extends GameObject {
 
   constructor(srcX, srcY, srcW, srcH, x, y, w, h, type, currentAnim) {
     super(srcX, srcY, srcW, srcH, x, y, w, h, type, currentAnim);
-    this.speed = 2;
+    this.speed = 1;
     this.vx = 0;
     this.vy = this.speed;
 
