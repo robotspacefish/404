@@ -17,6 +17,12 @@ export default class GameObject {
     GameObject.all.push(this);
   }
 
+  static remove(objToDelete) {
+    GameObject.all = GameObject.all.filter(gameObj => {
+      return JSON.stringify(gameObj) !== JSON.stringify(objToDelete);
+    });
+  }
+
   get centerX() {
     return this.x + this.w / 2;
   }

@@ -21,8 +21,8 @@ export default class Game {
     this.maxEnemies = 4;
 
     this.intervalId = setInterval(() => {
-      if (Enemy.all.length < 4) Enemy.spawn()
-    }, 3000);
+      if (Enemy.all.length < this.maxEnemies) Enemy.spawn()
+    }, 1000);
 
     Food.spawn();
 
@@ -123,6 +123,7 @@ export default class Game {
         console.log('collision')
         c.isCarried = true;
         this.player.isHolding = true;
+        this.player.itemHeld = c.type;
       }
 
       if (c.isCarried) {
@@ -131,8 +132,32 @@ export default class Game {
       }
     })
 
-    Enemy.all.forEach(e => {
+    Enemy.all.forEach((e, i) => {
       e.update(this.width, this.height);
+
+      // temporary enemy collision with another enemy
+      const otherEnemies = [...Enemy.all];
+      otherEnemies.splice(i, 1);
+
+      otherEnemies.forEach(otherEnemy => {
+        if (otherEnemy.isCollided(e)) {
+          e.changeDirection();
+          otherEnemy.changeDirection();
+        }
+      })
+
+      // check for collision with player
+      if (e.isCollided(this.player)) {
+        console.log(this.player.itemHeld, e.want)
+        if (this.player.isHolding && this.player.itemHeld === e.want) {
+          // if player has correct food item, kill enemy
+          e.kill(i);
+          // destroy food
+        } else {
+          // kill player
+        }
+      }
+
     })
   }
 

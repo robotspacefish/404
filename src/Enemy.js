@@ -71,6 +71,12 @@ export default class Enemy extends GameObject {
     }
   }
 
+  kill(index) {
+    Enemy.all.splice(index, 1);
+    GameObject.remove(this);
+    // TODO kill animation?
+  }
+
   update(width, height) {
     this.x += this.vx;
     this.y += this.vy;
