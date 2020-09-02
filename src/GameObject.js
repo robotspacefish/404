@@ -5,10 +5,10 @@ export default class GameObject {
     this.srcY = srcY;
     this.srcW = srcW;
     this.srcH = srcH;
-    this._x = x;
-    this._y = y;
-    this._w = w;
-    this._h = h;
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
     this.tick = 0;
     this.currentFrame = 0;
     this.type = type;
@@ -16,31 +16,6 @@ export default class GameObject {
 
     GameObject.all.push(this);
   }
-
-  get w() {
-    return this._w;
-  }
-
-  get h() {
-    return this._h;
-  }
-
-  get x() {
-    return this._x;
-  }
-
-  get y() {
-    return this._y;
-  }
-
-  set x(pos) {
-    this._x = pos;
-  }
-
-  set y(pos) {
-    this._y = pos;
-  }
-
 
   get centerX() {
     return this.x + this.w / 2;
