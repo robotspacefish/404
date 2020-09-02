@@ -1,5 +1,6 @@
 import Player from './Player.js';
 import Food from './Food.js';
+import Wall from './Wall.js';
 import GameObject from './GameObject.js';
 import GameMap from './GameMap.js';
 import Enemy from './Enemy.js';
@@ -13,6 +14,7 @@ export default class Game {
   constructor(canvas) {
     this.player = new Player(0, 0, 16, 16, null, null, 16, 16, 'player', playerAnims.DOWN);
     this.spawnPlayer();
+
     // this.mode;
     // this.bgSprites = [];
     this.gameMap = new GameMap(16);
@@ -101,6 +103,14 @@ export default class Game {
 
   update() {
     this.player.update(this.canvasHeight, this.canvasWidth);
+
+    Wall.all.forEach(w => {
+      if (w.isCollided(this.player)) {
+        // TODO move player out of wall
+        console.log('collision!')
+      }
+    })
+
     Food.all.forEach(c => {
       if (c.isCollided(this.player) && !this.player.isHolding) {
         console.log('collision')
@@ -113,6 +123,8 @@ export default class Game {
         c.y = this.player.y - c.h + 2
       }
     })
+
+
   }
 
   draw(tilesheet) {
