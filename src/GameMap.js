@@ -92,40 +92,14 @@ export default class GameMap {
   }
 
   draw(ctx, scale, tilesheet) {
-    // if (!this.isDrawn) {
-    // console.log('drawing')
-    const { FLOOR, WALL, TACO_COURT, DONUT_COURT, ENEMY_SPAWN } = mapCodes;
-    let ts = this.tileSize, cell;
-    for (let row = 0; row < gameMap[0].length; row++) {
-      for (let col = 0; col < gameMap.length; col++) {
-        switch (gameMap[col][row]) {
-          case FLOOR:
-            cell = this.floor;
-            break;
-          case WALL:
-            cell = this.wall;
-            break;
-          case TACO_COURT:
-            cell = this.tacoCourt;
-            break
-          case DONUT_COURT:
-            cell = this.donutCourt;
-            break;
-          case ENEMY_SPAWN:
-            cell = this.enemySpawn;
-            break;
-        }
-        ctx.drawImage(
-          tilesheet, cell.srcX, cell.srcY, ts, ts,
-          row * ts * scale,
-          col * ts * scale,
-          ts * scale,
-          ts * scale
-        );
-      }
-    }
+    let ts = this.tileSize;
+    this.cells.forEach(cell => {
+      ctx.drawImage(
+        tilesheet, cell.srcX, cell.srcY, ts, ts,
+        cell.x, cell.y, ts, ts
+      );
+    })
 
-    // this.isDrawn = true;
-    // }
+
   }
 }
