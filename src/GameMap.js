@@ -1,5 +1,6 @@
 import { mapCodes, gameMap } from './map.js';
 import GameObject from './GameObject.js';
+import EnemySpawn from './EnemySpawn.js';
 import Wall from './Wall.js';
 
 export default class GameMap {
@@ -38,7 +39,7 @@ export default class GameMap {
             cell.srcY = 0;
             break;
           case ENEMY_SPAWN:
-            cell = new GameObject();
+            cell = new EnemySpawn();
             cell.srcX = 256;
             cell.srcY = 16;
             break;
