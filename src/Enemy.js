@@ -1,7 +1,9 @@
 import GameObject from './GameObject.js';
-import { mapCodes } from './map.js';
+import EnemySpawn from './EnemySpawn.js';
+import { mapCodes, gameMap } from './map.js';
+import { enemy1Anims, enemy2Anims } from './animations.js';
 
-const { ENEMY_TYPE_1, ENEMY_TYPE_2, WALL } = mapCodes;
+const { ENEMY_TYPE_1, ENEMY_TYPE_2, ENEMY_SPAWN, WALL } = mapCodes;
 
 export default class Enemy extends GameObject {
   static all = [];
@@ -13,7 +15,8 @@ export default class Enemy extends GameObject {
     this.vy = this.speed;
 
     this.want;
-
+    this.isSpawned = false;
+    this.version;
     Enemy.all.push(this);
   }
 
@@ -30,11 +33,10 @@ export default class Enemy extends GameObject {
         anims: enemy2Anims
       }
     }
-    const spawnPointIndex = Math.random() * EnemySpawn.all.length;
-    // const spawnPoint = EnemySpawn.all[spawnPointIndex];
-    // debugger
-    // const enemy = new Enemy(t.srcX, t.srcY, 16, 16, spawnPoint.x, spawnPoint.y, 16, 16, 'enemy', t.anims.DOWN);
-    const enemy = new Enemy(v.anims.DOWN.srcX, v.anims.DOWN.srcY, 16, 16, x, y, 16, 16, 'enemy', v.anims.DOWN);
+    const spawnPointIndex = Math.floor(Math.random() * EnemySpawn.all.length);
+    const spawnPoint = EnemySpawn.all[spawnPointIndex];
+
+    const enemy = new Enemy(v.anims.DOWN.srcX, v.anims.DOWN.srcY, 16, 16, spawnPoint.x, spawnPoint.y, 16, 16, 'enemy', v.anims.DOWN);
     enemy.want = v.want;
     enemy.isSpawned = true;
     enemy.anims = v.anims;
@@ -49,18 +51,22 @@ export default class Enemy extends GameObject {
         case RIGHT:
           this.vx = this.speed;
           this.vy = 0;
+          this.srcX = this.anims.RIGHT_SIDE.srcX;
           break;
         case LEFT:
           this.vx = -this.speed;
           this.vy = 0;
+          this.srcX = this.anims.LEFT_SIDE.srcX;
           break;
         case UP:
           this.vx = 0;
           this.vy = -this.speed;
+          this.srcX = this.anims.UP.srcX;
           break;
         case DOWN:
           this.vx = 0;
           this.vy = this.speed;
+          this.srcX = this.anims.DOWN.srcX;
       }
     }
   }
@@ -71,7 +77,6 @@ export default class Enemy extends GameObject {
 
     if (Math.floor(this.x) % 16 === 0 && Math.floor(this.y) % 16 === 0) {
       // if it's at a corner, change it's direction
-      console.log('corner')
       this.changeDirection();
     }
 
