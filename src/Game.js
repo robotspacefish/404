@@ -168,6 +168,11 @@ export default class Game {
       }
 
     })
+
+    if (Food.all.length < 2) {
+      // create the food that was just fed/eaten
+      Food.all[0].type === 'taco' ? Food.createDonut() : Food.createTaco();
+    }
   }
 
   draw(tilesheet) {
