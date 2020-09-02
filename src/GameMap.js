@@ -51,42 +51,6 @@ export default class GameMap {
     }
   }
 
-
-
-  get floor() {
-    return {
-      srcX: 304,
-      srcY: 16
-    }
-  }
-
-  get wall() {
-    return {
-      srcX: 288,
-      srcY: 16
-    }
-  }
-  get enemySpawn() {
-    return {
-      srcX: 256,
-      srcY: 16
-    }
-  }
-
-  get tacoCourt() {
-    return {
-      srcX: 304,
-      srcY: 0
-    }
-  }
-
-  get donutCourt() {
-    return {
-      srcX: 288,
-      srcY: 0
-    }
-  }
-
   init() {
     this.draw();
   }
