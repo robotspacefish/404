@@ -55,15 +55,6 @@ export default class GameObject {
       Math.abs(this.centerY - obj.centerY) < this.h / 2 + obj.h / 2;
   }
 
-  /**
-   * TODO
-   * collisions
-   * boundaries
-   * removals
-   * draw/render
-   * update
-   */
-
   draw(ctx, scale, tilesheet) {
     ctx.drawImage(
       tilesheet, this.srcX, this.srcY, this.srcW, this.srcH,
