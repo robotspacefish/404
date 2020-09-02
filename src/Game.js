@@ -1,16 +1,20 @@
 import Player from './Player.js';
 import Food from './Food.js';
+import Wall from './Wall.js';
 import GameObject from './GameObject.js';
 import GameMap from './GameMap.js';
 import Enemy from './Enemy.js';
 import { playerAnims } from './animations.js';
+import { mapCodes, objectMap } from './map.js';
 
 const gameDiv = document.getElementById('game');
 Food.spawn();
 
 export default class Game {
   constructor(canvas) {
-    this.player = new Player(0, 0, 16, 16, 0, 0, 16, 16, 'player', playerAnims.DOWN);
+    this.player = new Player(0, 0, 16, 16, null, null, 16, 16, 'player', playerAnims.DOWN);
+    this.spawnPlayer();
+
     // this.mode;
     // this.bgSprites = [];
     this.gameMap = new GameMap(16);
@@ -18,21 +22,71 @@ export default class Game {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
     this.scale = 1;
+
+    // logical
+    this.width = 224;
+    this.height = 288;
+    this.maxWidth = 224 * 3;
+    this.maxHeight = 228 * 3;
+  }
+
+  spawnPlayer() {
+    for (let row = 0; row < objectMap[0].length; row++) {
+      for (let col = 0; col < objectMap.length; col++) {
+        if (objectMap[col][row] === mapCodes.PLAYER) {
+          this.player.x = row * 16;
+          this.player.y = col * 16;
+        }
+      }
+    }
   }
 
   resize() {
+    // debugger
+    let windowWidth = window.innerHeight,
+      windowHeight = window.innerWidth,
+      canvasWidth, canvasHeight;
+
+    // how many times the native resolution can be scaled up evenly, or max 3 times
+    const scale = Math.min(Math.floor(windowWidth / this.width), 3),
+      scaledWidth = this.width * (scale || 1),
+      scaledHeight = this.height * (scale || 1);
+
+    // const windowRatio = windowWidth / windowHeight;
+    // const gameWindowRatio = this.height / this.width;
+
+    // if (gameWindowRatio < windowRatio) {
+    //   const width = Math.floor(windowHeight * gameWindowRatio);
+    //   canvasWidth = `${width > scaledWidth ? scaledWidth : width}px`;
+    //   canvasHeight = `${width > scaledWidth ? scaledHeight : windowHeight}px`;
+    // } else {
+    //   const height = Math.floor(windowWidth / gameWindowRatio);
+    //   canvasWidth = `${height > scaledHeight ? scaledHeight : windowWidth}px`;
+    //   canvasHeight = `${height > scaledHeight ? scaledHeight : height}px`;
+    // }
+
+    this.canvas.style.width = `${scaledWidth}px`;
+    this.canvas.style.height = `${scaledHeight}px`;
+    gameDiv.style.width = `${scaledWidth}px`;
+    gameDiv.style.height = `${scaledHeight}px`;
+
+    // const ratio = Math.floor(this.height / this.width);
+
+
+    // canvasHeight < canvasWidth / ratio ?
+    //   canvasWidth = Math.floor(canvasHeight * ratio) :
+    //   canvasHeight = Math.floor(canvasWidth / ratio)
+
+    // debugger
+    // this.canvas.style.width = `${canvasWidth}px`;
+    // this.canvas.style.height = `${canvasHeight}px`;
+    // gameDiv.style.width = `${canvasWidth}px`;
+    // gameDiv.style.height = `${canvasHeight}px`;
+
     this.ctx.imageSmoothingEnabled = false; // remove blurring from resizing
-    const canvasWidth = this.canvasWidth, canvasHeight = this.canvasHeight;
-    const windowWidth = window.innerWidth;
-    // const windowHeight = window.innerHeight;
 
-    this.scale = Math.min(Math.floor(windowWidth / canvasWidth), 3);
+    console.log(`render: ${this.canvas.style.width} x ${this.canvas.style.height}`)
 
-    this.canvas.width = canvasWidth * (this.scale || 1);
-    this.canvas.height = canvasHeight * (this.scale || 1);
-
-    gameDiv.style.width = `${canvas.width}px`;
-    gameDiv.style.height = `${canvas.height}px`;
   }
 
   get canvasHeight() {
@@ -49,6 +103,14 @@ export default class Game {
 
   update() {
     this.player.update(this.canvasHeight, this.canvasWidth);
+
+    Wall.all.forEach(w => {
+      if (w.isCollided(this.player)) {
+        // TODO move player out of wall
+        console.log('collision!')
+      }
+    })
+
     Food.all.forEach(c => {
       if (c.isCollided(this.player) && !this.player.isHolding) {
         console.log('collision')
@@ -61,6 +123,8 @@ export default class Game {
         c.y = this.player.y - c.h + 2
       }
     })
+
+
   }
 
   draw(tilesheet) {

@@ -3,7 +3,7 @@ import GameObject from './GameObject.js';
 export default class Food extends GameObject {
   static all = [];
 
-  constructor(srcX, srcY, srcW, srcH, x, y, w, h, type = 'Food', currentAnim = null) {
+  constructor(srcX, srcY, srcW, srcH, x, y, w, h, type = 'food', currentAnim = null) {
     super(srcX, srcY, srcW, srcH, x, y, w, h, type, currentAnim);
     this.isCarried = false;
 

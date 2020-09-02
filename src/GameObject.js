@@ -1,6 +1,6 @@
 export default class GameObject {
   static all = [];
-  constructor(srcX, srcY, srcW, srcH, x, y, w, h, type, currentAnim = null) {
+  constructor(srcX, srcY, srcW, srcH, x, y, w = 16, h = 16, type, currentAnim = null) {
     this.srcX = srcX;
     this.srcY = srcY;
     this.srcW = srcW;
@@ -54,15 +54,6 @@ export default class GameObject {
     return Math.abs(this.centerX - obj.centerX) < this.w / 2 + obj.w / 2 &&
       Math.abs(this.centerY - obj.centerY) < this.h / 2 + obj.h / 2;
   }
-
-  /**
-   * TODO
-   * collisions
-   * boundaries
-   * removals
-   * draw/render
-   * update
-   */
 
   draw(ctx, scale, tilesheet) {
     ctx.drawImage(
