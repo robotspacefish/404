@@ -8,8 +8,6 @@ import { playerAnims } from './animations.js';
 import { mapCodes, objectMap } from './map.js';
 
 const gameDiv = document.getElementById('game');
-Food.spawn();
-Enemy.spawn();
 
 export default class Game {
   constructor(canvas) {
@@ -19,6 +17,14 @@ export default class Game {
     // this.mode;
     // this.bgSprites = [];
     this.gameMap = new GameMap(16);
+
+    this.maxEnemies = 4;
+
+    this.intervalId = setInterval(() => {
+      if (Enemy.all.length < 4) Enemy.spawn()
+    }, 3000);
+
+    Food.spawn();
 
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
@@ -125,7 +131,9 @@ export default class Game {
       }
     })
 
-
+    Enemy.all.forEach(e => {
+      e.update(this.width, this.height);
+    })
   }
 
   draw(tilesheet) {
