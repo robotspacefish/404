@@ -1,6 +1,6 @@
 export default class GameObject {
   static all = [];
-  constructor(srcX, srcY, srcW, srcH, x, y, w, h, type, currentAnim = null) {
+  constructor(srcX, srcY, srcW, srcH, x, y, w = 16, h = 16, type, currentAnim = null) {
     this.srcX = srcX;
     this.srcY = srcY;
     this.srcW = srcW;
