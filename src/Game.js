@@ -94,7 +94,7 @@ export default class Game {
 
     this.ctx.imageSmoothingEnabled = false; // remove blurring from resizing
 
-    console.log(`render: ${this.canvas.style.width} x ${this.canvas.style.height}`)
+    // console.log(`render: ${this.canvas.style.width} x ${this.canvas.style.height}`)
 
   }
 
@@ -117,13 +117,11 @@ export default class Game {
     Wall.all.forEach(w => {
       if (w.isCollided(this.player)) {
         // TODO move player out of wall
-        console.log('collision!')
       }
     })
 
     Food.all.forEach((f, i) => {
       if (f.isCollided(this.player) && !this.player.isHolding) {
-        console.log('collision')
         f.isCarried = true;
         this.player.isHolding = true;
         this.player.itemHeld = f.type;
@@ -152,12 +150,12 @@ export default class Game {
 
       // check for collision with player
       if (e.isCollided(this.player)) {
-        console.log(this.player.itemHeld, e.want)
         if (this.player.isHolding && this.player.itemHeld === e.want) {
           // if player has correct food item, kill enemy
           e.kill(i);
           // destroy food
           Food.destroy(foodCarriedIndex);
+
           this.player.isHolding = false;
           this.player.itemHeld = null;
           // increase points;
@@ -177,12 +175,7 @@ export default class Game {
 
   draw(tilesheet) {
     this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-    // this.ctx.imageSmoothingEnabled = false; // remove blurring from resizing
     this.gameMap.draw(this.ctx, this.scale, tilesheet);
-    // ctx.shadowColor = "rgba(100, 100, 100, 1)";
-    // ctx.shadowOffsetX = 0;
-    // ctx.shadowOffsetY = 5;
-    // ctx.shadowBlur = 3;
     GameObject.all.forEach(obj => obj.draw(this.ctx, this.scale, tilesheet))
   }
 }
