@@ -9,6 +9,7 @@ import { mapCodes, objectMap } from './map.js';
 
 const gameDiv = document.getElementById('game');
 Food.spawn();
+Enemy.spawn();
 
 export default class Game {
   constructor(canvas) {
