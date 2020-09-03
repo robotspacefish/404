@@ -75,34 +75,42 @@ export default class Enemy extends GameObject {
     // TODO kill animation?
   }
 
-  update(width, height) {
-    this.x += this.vx;
-    this.y += this.vy;
+  isAtACorner() {
+    return Math.floor(this.x) % 16 === 0 && Math.floor(this.y) % 16 === 0;
+  }
 
-    if (Math.floor(this.x) % 16 === 0 && Math.floor(this.y) % 16 === 0) {
-      // if it's at a corner, change it's direction
-      this.changeDirection();
-    }
+  isOutOfBounds(width, height) {
+    let outOfBounds = false;
 
-    if (this.x < 0) {
-      this.x = 0;
-      this.changeDirection();
+    if (this.x < 16) {
+      this.x = 16;
+      outOfBounds = true;
     }
 
     if (this.y < 0) {
       this.y = 0;
-      this.changeDirection();
+      outOfBounds = true;
     }
 
-    if (this.x + this.w > width) {
-      this.x = width - this.w;
-      this.changeDirection();
+    if (this.x + this.w > width - 16) {
+      this.x = width - this.w - 16;
+      outOfBounds = true;
     }
 
-    if (this.y + this.h > height) {
-      this.y = height - this.h;
-      this.changeDirection();
+    if (this.y + this.h > height - 16) {
+      this.y = height - this.h - 16;
+      outOfBounds = true;
     }
+
+    return outOfBounds;
+  }
+
+  update(width, height) {
+    this.x += this.vx;
+    this.y += this.vy;
+
+    if (this.isAtACorner() || this.isOutOfBounds(width, height))
+      this.changeDirection();
   }
 
 }
