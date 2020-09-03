@@ -3,7 +3,8 @@ import EnemySpawn from './EnemySpawn.js';
 import { mapCodes, gameMap } from './map.js';
 import { enemy1Anims, enemy2Anims } from './animations.js';
 
-const { ENEMY_TYPE_1, ENEMY_TYPE_2, ENEMY_SPAWN, WALL } = mapCodes;
+const { ENEMY_TYPE_1, ENEMY_TYPE_2, ENEMY_SPAWN, WALL, FLOOR } = mapCodes;
+const UP = 1, DOWN = 2, LEFT = 3, RIGHT = 4, NONE = 0;
 
 export default class Enemy extends GameObject {
   static all = [];
@@ -14,9 +15,14 @@ export default class Enemy extends GameObject {
     this.vx = 0;
     this.vy = this.speed;
 
+    this.validDirections = [];
+    this.direction = NONE;
+    // this.hunt = true;
+
     this.want;
 
     Enemy.all.push(this);
+
   }
 
   static spawn(x = 0, y = 0) {
@@ -41,30 +47,77 @@ export default class Enemy extends GameObject {
   }
 
   changeDirection() {
-    const UP = 1, DOWN = 2, LEFT = 3, RIGHT = 4;
-    const direction = Math.ceil(Math.random() * 7);
+    // clear previous direction
+    this.validDirections = [];
+    this.direction = NONE;
 
-    if (direction < 5) {
-      switch (direction) {
-        case RIGHT:
-          this.vx = this.speed;
-          this.vy = 0;
-          this.srcX = this.anims.RIGHT_SIDE.srcX;
-          break;
-        case LEFT:
-          this.vx = -this.speed;
-          this.vy = 0;
-          this.srcX = this.anims.LEFT_SIDE.srcX;
-          break;
-        case UP:
-          this.vx = 0;
-          this.vy = -this.speed;
-          this.srcX = this.anims.UP.srcX;
-          break;
-        case DOWN:
-          this.vx = 0;
-          this.vy = this.speed;
-          this.srcX = this.anims.DOWN.srcX;
+    const enemyColumn = Math.floor(this.x / 16);
+    const enemyRow = Math.floor(this.y / 16);
+
+    // find contents of surrounding cells
+    if (enemyRow > 0) {
+      const thingAbove = gameMap[enemyRow - 1][enemyColumn];
+
+      if (thingAbove === FLOOR) this.validDirections.push(UP);
+    }
+
+    if (enemyRow < gameMap[0].length - 1) {
+      const thingBelow = gameMap[enemyRow + 1][enemyColumn];
+
+      if (thingBelow === FLOOR) this.validDirections.push(DOWN)
+    }
+
+    if (enemyColumn > 0) {
+      const thingToTheLeft = gameMap[enemyRow][enemyColumn - 1];
+      if (thingToTheLeft === FLOOR) this.validDirections.push(LEFT);
+    }
+
+    if (enemyColumn < gameMap.length - 1) {
+      const thingToTheRight = gameMap[enemyRow][enemyColumn + 1];
+      if (thingToTheRight === FLOOR) this.validDirections.push(RIGHT);
+    }
+
+    if (this.validDirections.length !== 0) {
+      // find out if enemy is at intersection
+      const upOrDownPassage = this.validDirections.includes(UP) ||
+        this.validDirections.includes(DOWN);
+
+      const leftOrRightPassage = this.validDirections.includes(LEFT) || this.validDirections.includes(RIGHT);
+
+      // change direction if it's at intersection or dead-end
+      if (upOrDownPassage && leftOrRightPassage || this.validDirections.length === 1) {
+        // TODO find closest distance to player
+
+
+        // assign random direction
+        if (this.direction === NONE) {
+          const randNum = Math.floor(Math.random() * this.validDirections.length);
+          this.direction = this.validDirections[randNum];
+        }
+
+        switch (this.direction) {
+          case RIGHT:
+            this.srcX = this.anims.RIGHT_SIDE.srcX;
+            this.vx = this.speed;
+            this.vy = 0;
+            break;
+          case LEFT:
+            this.srcX = this.anims.LEFT_SIDE.srcX;
+            this.vx = -this.speed;
+            this.vy = 0;
+            break;
+          case UP:
+            this.srcX = this.anims.UP.srcX;
+            this.vy = -this.speed;
+            this.vx = 0;
+            break;
+          case DOWN:
+            this.srcX = this.anims.DOWN.srcX;
+            this.vy = this.speed;
+            this.vx = 0;
+            break;
+        }
+
       }
     }
   }
@@ -109,8 +162,7 @@ export default class Enemy extends GameObject {
     this.x += this.vx;
     this.y += this.vy;
 
-    if (this.isAtACorner() || this.isOutOfBounds(width, height))
-      this.changeDirection();
+    if (this.isAtACorner()) this.changeDirection();
   }
 
 }
