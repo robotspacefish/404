@@ -15,8 +15,7 @@ export default class Enemy extends GameObject {
     this.vy = this.speed;
 
     this.want;
-    this.isSpawned = false;
-    this.version;
+
     Enemy.all.push(this);
   }
 
@@ -38,7 +37,6 @@ export default class Enemy extends GameObject {
 
     const enemy = new Enemy(v.anims.DOWN.srcX, v.anims.DOWN.srcY, 16, 16, spawnPoint.x, spawnPoint.y, 16, 16, 'enemy', v.anims.DOWN);
     enemy.want = v.want;
-    enemy.isSpawned = true;
     enemy.anims = v.anims;
   }
 
