@@ -5,6 +5,7 @@ import { enemy1Anims, enemy2Anims } from './animations.js';
 
 const { ENEMY_TYPE_1, ENEMY_TYPE_2, ENEMY_SPAWN, WALL, FLOOR } = mapCodes;
 const UP = 1, DOWN = 2, LEFT = 3, RIGHT = 4, NONE = 0;
+const ROWS = gameMap[0].length, COLS = gameMap.length;
 
 export default class Enemy extends GameObject {
   static all = [];
@@ -39,11 +40,13 @@ export default class Enemy extends GameObject {
       }
     }
     const spawnPointIndex = Math.floor(Math.random() * EnemySpawn.all.length);
-    const spawnPoint = EnemySpawn.all[spawnPointIndex];
+    // const spawnPoint = EnemySpawn.all[spawnPointIndex];
+    const spawnPoint = EnemySpawn.all[2];
 
-    const enemy = new Enemy(v.anims.DOWN.srcX, v.anims.DOWN.srcY, 16, 16, spawnPoint.x, spawnPoint.y, 16, 16, 'enemy', v.anims.DOWN);
+    const enemy = new Enemy(v.anims.DOWN.srcX, v.anims.DOWN.srcY, 16, 16, spawnPoint.x, spawnPoint.y, 16, 16, 'enemy');
     enemy.want = v.want;
     enemy.anims = v.anims;
+    // enemy.changeDirection();
   }
 
   changeDirection() {
@@ -61,7 +64,7 @@ export default class Enemy extends GameObject {
       if (thingAbove === FLOOR) this.validDirections.push(UP);
     }
 
-    if (enemyRow < gameMap[0].length - 1) {
+    if (enemyRow < ROWS - 1) {
       const thingBelow = gameMap[enemyRow + 1][enemyColumn];
 
       if (thingBelow === FLOOR) this.validDirections.push(DOWN)
@@ -72,7 +75,7 @@ export default class Enemy extends GameObject {
       if (thingToTheLeft === FLOOR) this.validDirections.push(LEFT);
     }
 
-    if (enemyColumn < gameMap.length - 1) {
+    if (enemyColumn < COLS - 1) {
       const thingToTheRight = gameMap[enemyRow][enemyColumn + 1];
       if (thingToTheRight === FLOOR) this.validDirections.push(RIGHT);
     }
@@ -93,6 +96,7 @@ export default class Enemy extends GameObject {
         if (this.direction === NONE) {
           const randNum = Math.floor(Math.random() * this.validDirections.length);
           this.direction = this.validDirections[randNum];
+          console.log('dir', this.direction)
         }
 
         switch (this.direction) {
@@ -117,7 +121,6 @@ export default class Enemy extends GameObject {
             this.vx = 0;
             break;
         }
-
       }
     }
   }
@@ -128,41 +131,16 @@ export default class Enemy extends GameObject {
     // TODO kill animation?
   }
 
-  isAtACorner() {
+  isAtTileCorner() {
     return Math.floor(this.x) % 16 === 0 && Math.floor(this.y) % 16 === 0;
   }
 
-  isOutOfBounds(width, height) {
-    let outOfBounds = false;
-
-    if (this.x < 16) {
-      this.x = 16;
-      outOfBounds = true;
-    }
-
-    if (this.y < 0) {
-      this.y = 0;
-      outOfBounds = true;
-    }
-
-    if (this.x + this.w > width - 16) {
-      this.x = width - this.w - 16;
-      outOfBounds = true;
-    }
-
-    if (this.y + this.h > height - 16) {
-      this.y = height - this.h - 16;
-      outOfBounds = true;
-    }
-
-    return outOfBounds;
-  }
-
-  update(width, height) {
+  update() {
     this.x += this.vx;
     this.y += this.vy;
 
-    if (this.isAtACorner()) this.changeDirection();
+    if (this.isAtTileCorner()) this.changeDirection();
+
   }
 
 }
