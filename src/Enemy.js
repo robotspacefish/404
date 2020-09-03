@@ -18,7 +18,7 @@ export default class Enemy extends GameObject {
 
     this.validDirections = [];
     this.direction = NONE;
-    // this.hunt = true;
+    this.hunt = Math.random() > 0.75 ? true : false;
 
     this.want;
 
@@ -49,7 +49,21 @@ export default class Enemy extends GameObject {
     // enemy.changeDirection();
   }
 
-  changeDirection() {
+  findClosestDirection(player) {
+    let closestDirection;
+
+    const vx = player.centerX - this.centerX;
+    const vy = player.centerY - this.centerY;
+
+    // if distance is greater on X axis
+    if (Math.abs(vx) >= Math.abs(vy)) closestDirection = vx <= 0 ? LEFT : RIGHT;
+    else closestDirection = vy <= 0 ? UP : DOWN;
+
+    // find out if closestDirection is one of the validDirections
+    if (this.validDirections.includes(closestDirection)) this.direction = closestDirection;
+  }
+
+  changeDirection(player) {
     // clear previous direction
     this.validDirections = [];
     this.direction = NONE;
@@ -89,14 +103,15 @@ export default class Enemy extends GameObject {
 
       // change direction if it's at intersection or dead-end
       if (upOrDownPassage && leftOrRightPassage || this.validDirections.length === 1) {
-        // TODO find closest distance to player
+
+        // find closest distance to player
+        if (player && this.hunt) this.findClosestDirection(player);
 
 
         // assign random direction
         if (this.direction === NONE) {
           const randNum = Math.floor(Math.random() * this.validDirections.length);
           this.direction = this.validDirections[randNum];
-          console.log('dir', this.direction)
         }
 
         switch (this.direction) {
@@ -135,11 +150,11 @@ export default class Enemy extends GameObject {
     return Math.floor(this.x) % 16 === 0 && Math.floor(this.y) % 16 === 0;
   }
 
-  update() {
+  update(player) {
     this.x += this.vx;
     this.y += this.vy;
 
-    if (this.isAtTileCorner()) this.changeDirection();
+    if (this.isAtTileCorner()) this.changeDirection(player);
 
   }
 
