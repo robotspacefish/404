@@ -2,6 +2,7 @@ import { mapCodes, gameMap } from './map.js';
 import GameObject from './GameObject.js';
 import EnemySpawn from './EnemySpawn.js';
 import Wall from './Wall.js';
+import Floor from './Floor.js';
 
 export default class GameMap {
 
@@ -19,7 +20,7 @@ export default class GameMap {
       for (let col = 0; col < gameMap.length; col++) {
         switch (gameMap[col][row]) {
           case FLOOR:
-            cell = new GameObject();
+            cell = new Floor();
             cell.srcX = 304;
             cell.srcY = 16;
             break;
