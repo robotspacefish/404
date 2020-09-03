@@ -135,7 +135,7 @@ export default class Game {
     })
 
     Enemy.all.forEach((e, i) => {
-      e.update(this.width, this.height);
+      e.update(this.player);
 
       // temporary enemy collision with another enemy
       const otherEnemies = [...Enemy.all];
