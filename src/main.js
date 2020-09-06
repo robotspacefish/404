@@ -5,7 +5,7 @@ import { playerAnims } from './animations.js';
 // GLOBALS =======================================================
 const tilesheet = new Image();
 tilesheet.src = './assets/images/404_spritesheet_compressed.png';
-
+const bgCtx = document.getElementById('bg').getContext('2d');
 const game = new Game(document.getElementById('canvas'));
 // const config = {
 //   width: 224,
@@ -23,6 +23,25 @@ function gameLoop() {
   // renderMousePos(game.ctx); // debug
 
   requestAnimationFrame(gameLoop, canvas);
+}
+
+function buildBackground() {
+  for (let i = 0; i < window.innerWidth; i += 20) {
+    for (let j = 0; j < window.innerHeight; j += 20) {
+      const randX = Math.floor(Math.random() * window.innerWidth) + 1;
+      const randY = Math.floor(Math.random() * window.innerHeight) + 1;
+      bgCtx.fillStyle = 'white';
+      bgCtx.fillRect(randX, randY, 1, 1);
+    }
+  }
+}
+
+function bgResize() {
+  bgCtx.canvas.style.width = "100%";
+  bgCtx.canvas.style.height = "100%";
+  // bgCtx.canvas.width = window.innerWidth;
+  // bgCtx.canvas.height = window.innerHeight;
+  bgCtx.imageSmoothingEnabled = false; // remove blurring from resizing
 }
 
 // EVENT LISTENERS ===============================================
@@ -70,11 +89,15 @@ window.addEventListener('keyup', e => {
 });
 
 window.addEventListener('load', function () {
+  buildBackground();
+
   game.resize();
+  bgResize();
   game.ctx.imageSmoothingEnabled = false; // remove blurring from resizing
 
   window.addEventListener('resize', () => {
     game.resize();
+    bgResize();
   }, false);
 }, false)
 
@@ -83,6 +106,8 @@ tilesheet.addEventListener('load', () => {
   // START =========================================================
   requestAnimationFrame(gameLoop);
 }, false);
+
+
 
 
 // })()
