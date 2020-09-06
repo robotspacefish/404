@@ -26,8 +26,8 @@ function gameLoop() {
 }
 
 function buildBackground() {
-  for (let i = 0; i < window.innerWidth; i += 20) {
-    for (let j = 0; j < window.innerHeight; j += 20) {
+  for (let i = 0; i < window.innerWidth; i += 32) {
+    for (let j = 0; j < window.innerHeight; j += 32) {
       const randX = Math.floor(Math.random() * window.innerWidth) + 1;
       const randY = Math.floor(Math.random() * window.innerHeight) + 1;
       bgCtx.fillStyle = 'white';
@@ -93,7 +93,6 @@ window.addEventListener('load', function () {
 
   game.resize();
   bgResize();
-  game.ctx.imageSmoothingEnabled = false; // remove blurring from resizing
 
   window.addEventListener('resize', () => {
     game.resize();
