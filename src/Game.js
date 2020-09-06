@@ -19,7 +19,6 @@ export default class Game {
     // this.mode;
     // this.bgSprites = [];
     this.gameMap = new GameMap(16);
-
     this.maxEnemies = 4;
 
     this.intervalId = setInterval(() => {
@@ -35,8 +34,8 @@ export default class Game {
     // logical
     this.width = 224;
     this.height = 288;
-    this.maxWidth = 224 * 3;
-    this.maxHeight = 228 * 3;
+    this.maxWidth = this.width * 3;
+    this.maxHeight = this.height * 3;
   }
 
   spawnPlayer() {
@@ -51,51 +50,27 @@ export default class Game {
   }
 
   resize() {
-    // debugger
-    let windowWidth = window.innerHeight,
-      windowHeight = window.innerWidth,
-      canvasWidth, canvasHeight;
+    let cWidth = window.innerWidth,
+      cHeight = window.innerHeight;
 
-    // how many times the native resolution can be scaled up evenly, or max 3 times
-    const scale = Math.min(Math.floor(windowWidth / this.width), 3),
-      scaledWidth = this.width * (scale || 1),
-      scaledHeight = this.height * (scale || 1);
+    const nativeRatio = this.width / this.height,
+      browserWindowRatio = cWidth / cHeight,
+      SIZE = 16;
 
-    // const windowRatio = windowWidth / windowHeight;
-    // const gameWindowRatio = this.height / this.width;
+    if (browserWindowRatio > nativeRatio) {
+      cHeight = Math.floor(cHeight * 0.9 * SIZE) * SIZE;
+      if (cHeight > this.maxWidth) cHeight = this.maxHeight;
+      cWidth = Math.floor(cHeight * nativeRatio);
+    } else {
+      cWidth = Math.floor(cWidth * 0.9 / SIZE) * SIZE;
+      if (cWidth > this.maxWidth) cWidth = this.maxWidth;
+      cHeight = Math.floor(cWidth / nativeRatio);
+    }
 
-    // if (gameWindowRatio < windowRatio) {
-    //   const width = Math.floor(windowHeight * gameWindowRatio);
-    //   canvasWidth = `${width > scaledWidth ? scaledWidth : width}px`;
-    //   canvasHeight = `${width > scaledWidth ? scaledHeight : windowHeight}px`;
-    // } else {
-    //   const height = Math.floor(windowWidth / gameWindowRatio);
-    //   canvasWidth = `${height > scaledHeight ? scaledHeight : windowWidth}px`;
-    //   canvasHeight = `${height > scaledHeight ? scaledHeight : height}px`;
-    // }
-
-    this.canvas.style.width = `${scaledWidth}px`;
-    this.canvas.style.height = `${scaledHeight}px`;
-    gameDiv.style.width = `${scaledWidth}px`;
-    gameDiv.style.height = `${scaledHeight}px`;
-
-    // const ratio = Math.floor(this.height / this.width);
-
-
-    // canvasHeight < canvasWidth / ratio ?
-    //   canvasWidth = Math.floor(canvasHeight * ratio) :
-    //   canvasHeight = Math.floor(canvasWidth / ratio)
-
-    // debugger
-    // this.canvas.style.width = `${canvasWidth}px`;
-    // this.canvas.style.height = `${canvasHeight}px`;
-    // gameDiv.style.width = `${canvasWidth}px`;
-    // gameDiv.style.height = `${canvasHeight}px`;
+    this.canvas.style.width = `${cWidth}px`;
+    this.canvas.style.height = `${cHeight}px`;
 
     this.ctx.imageSmoothingEnabled = false; // remove blurring from resizing
-
-    // console.log(`render: ${this.canvas.style.width} x ${this.canvas.style.height}`)
-
   }
 
   get canvasHeight() {
@@ -138,15 +113,17 @@ export default class Game {
       e.update(this.player);
 
       // temporary enemy collision with another enemy
-      const otherEnemies = [...Enemy.all];
-      otherEnemies.splice(i, 1);
+      // const otherEnemies = [...Enemy.all];
+      // otherEnemies.splice(i, 1);
 
-      otherEnemies.forEach(otherEnemy => {
-        if (otherEnemy.isCollided(e)) {
-          e.changeDirection();
-          otherEnemy.changeDirection();
-        }
-      })
+      // otherEnemies.forEach(otherEnemy => {
+      // TODO find direction they bumped and remove it from valid directions
+
+      // if (otherEnemy.isCollided(e)) {
+      //   e.changeDirection();
+      //   otherEnemy.changeDirection();
+      // }
+      // })
 
       // check for collision with player
       if (e.isCollided(this.player)) {
