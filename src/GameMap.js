@@ -26,8 +26,8 @@ export default class GameMap {
             break;
           case WALL:
             cell = new Wall();
-            cell.srcX = 288;
-            cell.srcY = 16;
+            // cell.srcX = 288;
+            // cell.srcY = 16;
             break;
           case TACO_COURT:
             cell = new GameObject();
@@ -60,10 +60,13 @@ export default class GameMap {
   draw(ctx, scale, tilesheet) {
     let ts = this.tileSize;
     this.cells.forEach(cell => {
-      ctx.drawImage(
-        tilesheet, cell.srcX, cell.srcY, ts, ts,
-        cell.x, cell.y, ts, ts
-      );
+      if (cell.type !== 'wall') {
+        ctx.globalAlpha = 1;
+        ctx.drawImage(
+          tilesheet, cell.srcX, cell.srcY, ts, ts,
+          cell.x, cell.y, ts, ts
+        );
+      }
     })
 
 
