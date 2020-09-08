@@ -31,7 +31,7 @@ export default class GameObject {
     return this.y + this.w / 2;
   }
 
-  isCollided(obj) {
+  isCollidedAtCenter(obj) {
     return Math.abs(this.centerX - obj.centerX) < this.w / 2 + obj.w / 2 &&
       Math.abs(this.centerY - obj.centerY) < this.h / 2 + obj.h / 2;
   }

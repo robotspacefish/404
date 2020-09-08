@@ -126,7 +126,7 @@ export default class Game {
       // })
 
       // check for collision with player
-      if (e.isCollided(this.player)) {
+      if (e.isCollidedAtCenter(this.player)) {
         if (this.player.isHolding && this.player.itemHeld === e.want) {
           // if player has correct food item, kill enemy
           e.kill(i);
