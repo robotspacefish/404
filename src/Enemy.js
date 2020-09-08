@@ -40,8 +40,7 @@ export default class Enemy extends GameObject {
       }
     }
     const spawnPointIndex = Math.floor(Math.random() * EnemySpawn.all.length);
-    // const spawnPoint = EnemySpawn.all[spawnPointIndex];
-    const spawnPoint = EnemySpawn.all[2];
+    const spawnPoint = EnemySpawn.all[spawnPointIndex];
 
     const enemy = new Enemy(v.anims.DOWN.srcX, v.anims.DOWN.srcY, 16, 16, spawnPoint.x, spawnPoint.y, 16, 16, 'enemy');
     enemy.want = v.want;
