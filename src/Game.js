@@ -6,8 +6,13 @@ import GameMap from './GameMap.js';
 import Enemy from './Enemy.js';
 import { playerAnims } from './animations.js';
 import { mapCodes, objectMap } from './map.js';
+import EnemySpawn from './EnemySpawn.js';
 
-const gameDiv = document.getElementById('game');
+const LOADING = 0,
+  INIT = 1,
+  TITLE = 2,
+  PLAY = 3,
+  GAMEOVER = 4;
 
 export default class Game {
   constructor(canvas) {
@@ -15,9 +20,7 @@ export default class Game {
     this.spawnPlayer();
 
     this.points = 0;
-
-    // this.mode;
-    // this.bgSprites = [];
+    this.state = PLAY;
     this.gameMap = new GameMap(16);
     this.maxEnemies = 4;
 
@@ -69,7 +72,7 @@ export default class Game {
 
     this.canvas.style.width = `${cWidth}px`;
     this.canvas.style.height = `${cHeight}px`;
-
+    console.log(this.canvas.style.width, this.canvas.style.height)
     this.ctx.imageSmoothingEnabled = false; // remove blurring from resizing
   }
 
@@ -86,14 +89,18 @@ export default class Game {
   }
 
   update() {
+    if (this.state === PLAY) {
+      this.handleCollisions();
+    }
+  }
+
+  handleCollisions() {
     this.player.update(this.canvasHeight, this.canvasWidth);
     let foodCarriedIndex;
 
-    Wall.all.forEach(w => {
-      if (w.isCollided(this.player)) {
-        // TODO move player out of wall
-      }
-    })
+    Wall.all.forEach(w => this.player.handleRectangleCollision(w));
+
+    EnemySpawn.all.forEach(s => this.player.handleRectangleCollision(s));
 
     Food.all.forEach((f, i) => {
       if (this.player.isCollidedWithFood(f) && !this.player.isHolding) {
@@ -117,14 +124,14 @@ export default class Game {
       // otherEnemies.splice(i, 1);
 
       // otherEnemies.forEach(otherEnemy => {
-      // TODO find direction they bumped and remove it from valid directions
+      //   // TODO find direction they bumped and remove it from valid directions
 
-      // if (otherEnemy.isCollided(e)) {
-      //   e.changeDirection();
-      //   otherEnemy.changeDirection();
-      // }
+      //   if (otherEnemy.isCollidedAtCenter(e)) {
+      //     e.changeDirection();
+
+      //     otherEnemy.changeDirection();
+      //   }
       // })
-
       // check for collision with player
       if (e.isCollidedAtCenter(this.player)) {
         if (this.player.isHolding && this.player.itemHeld === e.want) {
@@ -151,8 +158,12 @@ export default class Game {
   }
 
   draw(tilesheet) {
-    this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-    this.gameMap.draw(this.ctx, this.scale, tilesheet);
-    GameObject.all.forEach(obj => obj.draw(this.ctx, this.scale, tilesheet))
+    if (this.state === PLAY) {
+      this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+
+      this.gameMap.draw(this.ctx, this.scale, tilesheet);
+
+      GameObject.all.forEach(obj => obj.draw(this.ctx, this.scale, tilesheet))
+    }
   }
 }
