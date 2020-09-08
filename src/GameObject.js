@@ -36,6 +36,48 @@ export default class GameObject {
       Math.abs(this.centerY - obj.centerY) < this.h / 2 + obj.h / 2;
   }
 
+  handleRectangleCollision(obj) {
+
+    let vx = this.centerX - obj.centerX,
+      vy = this.centerY - obj.centerY,
+      combinedHalfWidths = this.w / 2 + obj.w / 2,
+      combinedHalfHeights = this.h / 2 + obj.h / 2,
+      collision, overlapX, overlapY;
+
+    // if squares overlap on the x axis
+    if (Math.abs(vx) < combinedHalfWidths) {
+      // if squares overlap on the y axis
+      if (Math.abs(vy) < combinedHalfHeights) {
+        // squares overlap on both axes, so there's a collision
+        // the collision is occuring on the axis with the SMALLEST amount of overlap
+        overlapX = combinedHalfWidths - Math.abs(vx);
+        overlapY = combinedHalfHeights - Math.abs(vy);
+
+        if (overlapX >= overlapY) {
+          // collision on X axis
+
+          if (vy > 0) {
+            collision = "top";
+
+            // move obj out of the collision
+            this.y += overlapY;
+          } else {
+            collision = "bottom";
+            this.y -= overlapY;
+          }
+        } else {
+          if (vx > 0) {
+            collision = "left";
+            this.x += overlapX;
+          } else {
+            collision = "right";
+            this.x -= overlapX;
+          }
+        }
+      }
+    }
+  }
+
   draw(ctx, scale, tilesheet) {
     ctx.drawImage(
       tilesheet, this.srcX, this.srcY, this.srcW, this.srcH,
