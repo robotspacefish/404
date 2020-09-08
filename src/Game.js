@@ -164,6 +164,15 @@ export default class Game {
       this.gameMap.draw(this.ctx, this.scale, tilesheet);
 
       GameObject.all.forEach(obj => obj.draw(this.ctx, this.scale, tilesheet))
+
+      this.displayScore();
     }
+  }
+
+  displayScore() {
+    this.ctx.font = '12px Monospace';
+    this.ctx.fillStyle = 'white';
+    this.ctx.textBaseline = 'bottom';
+    this.ctx.fillText(`Score:${this.points}`, 16, this.height - 2)
   }
 }
