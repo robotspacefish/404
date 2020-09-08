@@ -158,20 +158,33 @@ export default class Game {
   }
 
   draw(tilesheet) {
-    if (this.state === PLAY) {
-      this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+    this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
 
-      this.gameMap.draw(this.ctx, this.scale, tilesheet);
+    this.ctx.fillStyle = 'white';
 
-      GameObject.all.forEach(obj => obj.draw(this.ctx, this.scale, tilesheet))
+    if (this.state === TITLE) this.drawTextScreen('kill.exe not found', 'Press [SPACE] to Start');
+    else if (this.state === PLAY) this.drawPlay(tilesheet);
+    else if (this.state === GAMEOVER) this.drawTextScreen('GAME OVER', 'Press [SPACE] to Play Again');
+  }
 
-      this.displayScore();
-    }
+  drawPlay(tilesheet) {
+    this.gameMap.draw(this.ctx, tilesheet);
+
+    GameObject.all.forEach(obj => obj.draw(this.ctx, tilesheet));
+
+    this.ctx.font = '12px Monospace';
+    this.displayScore();
+  }
+
+  drawTextScreen(text1, text2) {
+    this.ctx.font = '14px Monospace';
+    this.ctx.fillText(text1, this.width / 2 - 68, 100, this.width);
+
+    this.ctx.font = '10px Monospace';
+    this.ctx.fillText(text2, this.width / 2 - 58, this.height - 100, this.width)
   }
 
   displayScore() {
-    this.ctx.font = '12px Monospace';
-    this.ctx.fillStyle = 'white';
     this.ctx.textBaseline = 'bottom';
     this.ctx.fillText(`Score:${this.points}`, 16, this.height - 2)
   }
