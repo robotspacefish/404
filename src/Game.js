@@ -12,33 +12,52 @@ const LOADING = 0,
   INIT = 1,
   TITLE = 2,
   PLAY = 3,
-  GAMEOVER = 4;
+  GAMEOVER = 4, RESET = 5;
 
 export default class Game {
   constructor(canvas) {
-    this.player = new Player(0, 0, 16, 16, null, null, 16, 16, 'player', playerAnims.DOWN);
-    this.spawnPlayer();
+    this.player;
 
-    this.points = 0;
-    this.state = PLAY;
+    this.points;
+    this.state = TITLE;
     this.gameMap = new GameMap(16);
     this.maxEnemies = 4;
 
-    this.intervalId = setInterval(() => {
-      if (Enemy.all.length < this.maxEnemies) Enemy.spawn()
-    }, 1000);
-
-    Food.spawn();
-
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
-    this.scale = 1;
 
     // logical
     this.width = 224;
     this.height = 288;
     this.maxWidth = this.width * 3;
     this.maxHeight = this.height * 3;
+
+    this.tick = 0;
+    this.intervalId = null;
+  }
+
+  init() {
+    Food.spawn();
+    this.player = new Player(0, 0, 16, 16, null, null, 16, 16, 'player', playerAnims.DOWN);
+    this.spawnPlayer();
+    this.points = 0;
+    this.intervalId = setInterval(() => {
+      if (Enemy.all.length < this.maxEnemies) Enemy.spawn()
+    }, 1000);
+
+    this.state = PLAY;
+  }
+
+  reset() {
+    GameObject.all = [];
+    Food.all = [];
+    Enemy.all = [];
+    clearInterval(this.intervalId);
+    this.state = INIT;
+  }
+
+  spawnEnemy() {
+    if (Enemy.all.length < this.maxEnemies) Enemy.spawn()
   }
 
   spawnPlayer() {
@@ -72,7 +91,7 @@ export default class Game {
 
     this.canvas.style.width = `${cWidth}px`;
     this.canvas.style.height = `${cHeight}px`;
-    console.log(this.canvas.style.width, this.canvas.style.height)
+
     this.ctx.imageSmoothingEnabled = false; // remove blurring from resizing
   }
 
@@ -89,9 +108,10 @@ export default class Game {
   }
 
   update() {
-    if (this.state === PLAY) {
-      this.handleCollisions();
-    }
+    if (this.state === PLAY) this.handleCollisions();
+    else if (this.state === INIT) this.init();
+    else if (this.state === RESET) this.reset();
+
   }
 
   handleCollisions() {
@@ -146,6 +166,7 @@ export default class Game {
           this.points++;
         } else {
           // kill player
+          this.state = GAMEOVER;
         }
       }
 
