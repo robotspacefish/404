@@ -96,7 +96,7 @@ export default class Game {
     })
 
     Food.all.forEach((f, i) => {
-      if (f.isCollided(this.player) && !this.player.isHolding) {
+      if (this.player.isCollidedWithFood(f) && !this.player.isHolding) {
         f.isCarried = true;
         this.player.isHolding = true;
         this.player.itemHeld = f.type;

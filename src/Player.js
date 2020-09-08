@@ -34,10 +34,11 @@ export default class Player extends GameObject {
     }
   }
 
-  pickup(item) { }
-
-  drop() {
-    // if this.itemHeld, drop at player x,y
+  isCollidedWithFood(food) {
+    return food.x > this.x &&
+      food.x + food.w < this.x + this.w &&
+      food.y > this.y &&
+      food.y + food.h < this.y + this.h;
   }
 
   give(recipient) {
