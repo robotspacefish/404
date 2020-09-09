@@ -130,7 +130,6 @@ export default class Game {
       }
 
       if (f.isCarried) {
-        foodCarriedIndex = i;
         f.x = this.player.x + this.player.w / 2 - f.w / 2;
         f.y = this.player.y - f.h + 2
       }
@@ -158,7 +157,7 @@ export default class Game {
           // if player has correct food item, kill enemy
           e.kill(i);
           // destroy food
-          Food.destroy(foodCarriedIndex);
+          Food.destroy();
 
           this.player.isHolding = false;
           this.player.itemHeld = null;
