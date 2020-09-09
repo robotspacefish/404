@@ -181,12 +181,27 @@ export default class Game {
 
   draw(tilesheet) {
     this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-
     this.ctx.fillStyle = 'white';
+    this.drawUI(tilesheet);
 
     if (this.state === TITLE) this.drawTextScreen('kill.exe not found', 'Press [SPACE] to Start');
     else if (this.state === PLAY) this.drawPlay(tilesheet);
     else if (this.state === GAMEOVER) this.drawTextScreen('GAME OVER', 'Press [SPACE] to Play Again');
+  }
+
+  drawUI(tilesheet) {
+    // green alien loves tacos
+    this.ctx.strokeStyle = 'white'
+    this.ctx.drawImage(tilesheet, 0, 16, 16, 16, this.width / 2 + 4, this.height - 16, 16, 16)
+    this.ctx.drawImage(tilesheet, 275, 19, 9, 9, this.width / 2 + 20, this.height - 11, 9, 9)
+    this.ctx.drawImage(tilesheet, 275, 8, 10, 7, this.width / 2 + 32, this.height - 10, 10, 7)
+
+    // yellow alien loves donuts
+    this.ctx.drawImage(tilesheet, 128, 16, 16, 16, this.width - 44, this.height - 16, 16, 16)
+    this.ctx.drawImage(tilesheet, 275, 19, 9, 9, this.width - 28, this.height - 11, 9, 9)
+    this.ctx.drawImage(tilesheet, 259, 6, 10, 10, this.width - 16, this.height - 12, 10, 10)
+
+    this.displayScore();
   }
 
   drawPlay(tilesheet) {
@@ -195,7 +210,7 @@ export default class Game {
     GameObject.all.forEach(obj => obj.draw(this.ctx, tilesheet));
 
     this.ctx.font = '12px Monospace';
-    this.displayScore();
+
   }
 
   drawTextScreen(text1, text2) {
@@ -208,6 +223,6 @@ export default class Game {
 
   displayScore() {
     this.ctx.textBaseline = 'bottom';
-    this.ctx.fillText(`Score:${this.points}`, 16, this.height - 2)
+    this.ctx.fillText(`Score:${this.points}`, 0, this.height - 2)
   }
 }
