@@ -5,8 +5,8 @@ import GameObject from './GameObject.js';
 import GameMap from './GameMap.js';
 import Enemy from './Enemy.js';
 import { playerAnims } from './animations.js';
-
 import EnemySpawn from './EnemySpawn.js';
+import { mapHeight, mapWidth } from './map.js';
 
 const LOADING = 0,
   INIT = 1,
@@ -27,8 +27,8 @@ export default class Game {
     this.ctx = canvas.getContext('2d');
 
     // logical
-    this.width = 224;
-    this.height = 288;
+    this.width = mapWidth * 16;
+    this.height = mapHeight * 16;
     this.maxWidth = this.width * 3;
     this.maxHeight = this.height * 3;
 

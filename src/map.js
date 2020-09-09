@@ -18,6 +18,8 @@ export const gameMap = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ];
 
+export const mapHeight = gameMap.length, mapWidth = gameMap[0].length;
+
 export const mapCodes = {
   EMPTY: 0,
   FLOOR: 1,
