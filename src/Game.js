@@ -124,8 +124,8 @@ export default class Game {
           this.player.itemHeld = f;
         } else if (this.player.itemHeld.type !== f.type) {
           console.log('already holding', this.player.itemHeld.type)
-          f.isCarried = true;
-          foodDestroyed = Food.destroy();
+          foodDestroyed = Food.destroy(); // destroy first
+          f.isCarried = true; // otherwise this get destroyed
           this.player.itemHeld = f; // swap
         }
       }
