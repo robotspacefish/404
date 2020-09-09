@@ -45,7 +45,7 @@ export default class Enemy extends GameObject {
     const enemy = new Enemy(v.anims.DOWN.srcX, v.anims.DOWN.srcY, 16, 16, spawnPoint.x, spawnPoint.y, 16, 16, 'enemy');
     enemy.want = v.want;
     enemy.anims = v.anims;
-    // enemy.changeDirection();
+    enemy.currentAnim = v.anims.DOWN;
   }
 
   findClosestDirection(player) {
@@ -154,7 +154,7 @@ export default class Enemy extends GameObject {
     this.y += this.vy;
 
     if (this.isAtTileCorner()) this.changeDirection(player);
-
+    this.animate();
   }
 
 }
