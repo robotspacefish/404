@@ -1,5 +1,6 @@
 import Player from './Player.js';
 import Food from './Food.js';
+import FoodCourt from './FoodCourt.js';
 import Wall from './Wall.js';
 import GameObject from './GameObject.js';
 import GameMap from './GameMap.js';
@@ -134,6 +135,13 @@ export default class Game {
         // hold food above player's head
         f.x = this.player.x + this.player.w / 2 - f.w / 2;
         f.y = this.player.y - f.h + 2
+      }
+    })
+
+    FoodCourt.all.forEach(fc => {
+      //
+      if (this.player.isHolding && this.player.itemHeld.type === fc.type) {
+        this.player.handleRectangleCollision(fc)
       }
     })
 
