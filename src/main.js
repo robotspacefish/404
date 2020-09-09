@@ -49,19 +49,19 @@ window.addEventListener('keydown', e => {
     switch (e.key) {
       case 'ArrowUp':
         game.player.movement.up = true;
-        game.player.currentAnim = game.player.isHolding ? UP_CARRY : UP
+        game.player.currentAnim = game.player.isHolding ? UP_CARRY : UP;
         break;
       case 'ArrowDown':
         game.player.movement.down = true;
-        game.player.currentAnim = game.player.isHolding ? DOWN_CARRY : DOWN
+        game.player.currentAnim = game.player.isHolding ? DOWN_CARRY : DOWN;
         break;
       case 'ArrowLeft':
         game.player.movement.left = true;
-        game.player.currentAnim = game.player.isHolding ? LEFT_SIDE_CARRY : LEFT_SIDE
+        game.player.currentAnim = game.player.isHolding ? LEFT_SIDE_CARRY : LEFT_SIDE;
         break;
       case 'ArrowRight':
         game.player.movement.right = true;
-        game.player.currentAnim = game.player.isHolding ? RIGHT_SIDE_CARRY : RIGHT_SIDE
+        game.player.currentAnim = game.player.isHolding ? RIGHT_SIDE_CARRY : RIGHT_SIDE;
     }
   } else if (e.keyCode === 32) {
     if (game.state === TITLE) game.state = INIT;
