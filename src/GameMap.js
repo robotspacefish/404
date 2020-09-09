@@ -57,7 +57,7 @@ export default class GameMap {
     this.draw();
   }
 
-  draw(ctx, scale, tilesheet) {
+  draw(ctx, tilesheet) {
     let ts = this.tileSize;
     this.cells.forEach(cell => {
       if (cell.type !== 'wall') {

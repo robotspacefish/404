@@ -55,17 +55,13 @@ window.addEventListener('keydown', e => {
         game.player.movement.down = true;
         game.player.currentAnim = game.player.isHolding ? DOWN_CARRY : DOWN
         break;
-        break;
       case 'ArrowLeft':
         game.player.movement.left = true;
         game.player.currentAnim = game.player.isHolding ? LEFT_SIDE_CARRY : LEFT_SIDE
         break;
-        break;
       case 'ArrowRight':
         game.player.movement.right = true;
         game.player.currentAnim = game.player.isHolding ? RIGHT_SIDE_CARRY : RIGHT_SIDE
-        break;
-        break;
     }
   } else if (e.keyCode === 32) {
     if (game.state === TITLE) game.state = INIT;
@@ -107,8 +103,5 @@ tilesheet.addEventListener('load', () => {
   // START =========================================================
   requestAnimationFrame(gameLoop);
 }, false);
-
-
-
 
 // })()
