@@ -2,7 +2,7 @@ import GameObject from './GameObject.js';
 
 export default class Player extends GameObject {
   constructor(srcX, srcY, srcW, srcH, x, y, w, h, type, currentAnim) {
-    super(srcX, srcY, srcW, srcH, x, y, w, h, type, currentAnim);
+    super(srcX, srcY = 0, srcW, srcH, x, y, w, h, type, currentAnim);
     this.vx = 0;
     this.vy = 0;
 
