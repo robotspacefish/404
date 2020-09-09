@@ -115,22 +115,22 @@ export default class Enemy extends GameObject {
 
         switch (this.direction) {
           case RIGHT:
-            this.srcX = this.anims.RIGHT_SIDE.srcX;
+            this.currentAnim = this.anims.RIGHT_SIDE;
             this.vx = this.speed;
             this.vy = 0;
             break;
           case LEFT:
-            this.srcX = this.anims.LEFT_SIDE.srcX;
+            this.currentAnim = this.anims.LEFT_SIDE;
             this.vx = -this.speed;
             this.vy = 0;
             break;
           case UP:
-            this.srcX = this.anims.UP.srcX;
+            this.currentAnim = this.anims.UP;
             this.vy = -this.speed;
             this.vx = 0;
             break;
           case DOWN:
-            this.srcX = this.anims.DOWN.srcX;
+            this.currentAnim = this.anims.DOWN;
             this.vy = this.speed;
             this.vx = 0;
             break;
