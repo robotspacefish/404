@@ -23,10 +23,9 @@ export default class Player extends GameObject {
 
 
   isCollidedWithFood(food) {
-    return food.x > this.x &&
-      food.x + food.w < this.x + this.w &&
-      food.y > this.y &&
-      food.y + food.h < this.y + this.h;
+    return food.x - 10 <= this.x && food.x + food.w + 10 >= this.x + this.w &&
+      this.y > food.y &&
+      this.y + this.h <= food.y + food.h + 15;
   }
 
   update(height, width) {
