@@ -69,6 +69,7 @@ export default class GameObject {
     if (Math.abs(vx) < combinedHalfWidths) {
       // if squares overlap on the y axis
       if (Math.abs(vy) < combinedHalfHeights) {
+        hit = true;
         // squares overlap on both axes, so there's a collision
         // the collision is occuring on the axis with the SMALLEST amount of overlap
         overlapX = combinedHalfWidths - Math.abs(vx);
@@ -76,36 +77,26 @@ export default class GameObject {
 
         if (overlapX >= overlapY) {
           // collision on X axis
-
-          if (vy > 0) {
-            collision = "top";
-
-            // move obj out of the collision
-            this.y += overlapY;
-          } else {
-            collision = "bottom";
-            this.y -= overlapY;
-          }
+          if (vy > 0) this.y += overlapY;
+          else this.y -= overlapY;
         } else {
-          if (vx > 0) {
-            collision = "left";
-            this.x += overlapX;
-          } else {
-            collision = "right";
-            this.x -= overlapX;
-          }
+          // collision on Y axis
+          if (vx > 0) this.x += overlapX;
+          else this.x -= overlapX;
         }
       }
     }
+
+    return hit;
   }
 
-  draw(ctx, scale, tilesheet) {
+  draw(ctx, tilesheet) {
     ctx.drawImage(
       tilesheet, this.srcX, this.srcY, this.srcW, this.srcH,
-      this.x * scale,
-      this.y * scale,
-      this.w * scale,
-      this.h * scale
+      this.x,
+      this.y,
+      this.w,
+      this.h
     )
   }
 
