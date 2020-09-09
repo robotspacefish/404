@@ -23,14 +23,17 @@ export default class Game {
     this.gameMap = new GameMap(16);
     this.maxEnemies = 4;
 
-    this.canvas = canvas;
-    this.ctx = canvas.getContext('2d');
-
     // logical
     this.width = mapWidth * 16;
     this.height = mapHeight * 16;
     this.maxWidth = this.width * 3;
     this.maxHeight = this.height * 3;
+
+
+    this.canvas = canvas;
+    this.ctx = canvas.getContext('2d');
+    this.canvas.height = this.height;
+    this.canvas.width = this.width;
 
     this.tick = 0;
     this.intervalId = null;
