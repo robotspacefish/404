@@ -20,19 +20,7 @@ export default class Player extends GameObject {
     this.isHolding = false;
   }
 
-  animate() {
-    this.tick++;
 
-    if (this.tick === this.currentAnim.tickCap) {
-      if (this.currentFrame === this.currentAnim.numOfFrames - 1) {
-        this.currentFrame = 0; // reset
-      } else {
-        this.currentFrame++;
-      }
-      this.srcX = this.currentFrame * 16 + this.currentAnim.srcX;
-      this.tick = 0;
-    }
-  }
 
   isCollidedWithFood(food) {
     return food.x > this.x &&

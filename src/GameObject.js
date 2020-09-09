@@ -31,13 +31,32 @@ export default class GameObject {
     return this.y + this.w / 2;
   }
 
+  animate() {
+    // if (!this.isAnimPlaying) {
+
+    // }
+    // if (this.type === 'enemy') debugger
+    this.tick++;
+    const numOfFrames = 2;
+
+    if (this.tick === TICKCAP) {
+      if (this.currentFrame === numOfFrames - 1) {
+        this.currentFrame = 0; // reset
+      } else {
+        this.currentFrame++;
+      }
+      this.srcX = this.currentFrame * 16 + this.currentAnim.srcX;
+      this.tick = 0;
+    }
+  }
+
   isCollidedAtCenter(obj) {
     return Math.abs(this.centerX - obj.centerX) < this.w / 2 + obj.w / 2 &&
       Math.abs(this.centerY - obj.centerY) < this.h / 2 + obj.h / 2;
   }
 
   handleRectangleCollision(obj) {
-
+    let hit = false;
     let vx = this.centerX - obj.centerX,
       vy = this.centerY - obj.centerY,
       combinedHalfWidths = this.w / 2 + obj.w / 2,
