@@ -1,51 +1,27 @@
 export const playerAnims = {
   DOWN: {
-    srcX: 0,
-    srcY: 0,
-    numOfFrames: 2,
-    tickCap: 28
+    srcX: 0
   },
   DOWN_CARRY: {
-    srcX: 32,
-    srcY: 0,
-    numOfFrames: 2,
-    tickCap: 28
+    srcX: 32
   },
   UP: {
-    srcX: 64,
-    srcY: 0,
-    numOfFrames: 2,
-    tickCap: 28
+    srcX: 64
   },
   UP_CARRY: {
-    srcX: 96,
-    srcY: 0,
-    numOfFrames: 2,
-    tickCap: 28
+    srcX: 96
   },
   RIGHT_SIDE: {
-    srcX: 128,
-    srcY: 0,
-    numOfFrames: 2,
-    tickCap: 28
+    srcX: 128
   },
   RIGHT_SIDE_CARRY: {
-    srcX: 160,
-    srcY: 0,
-    numOfFrames: 2,
-    tickCap: 28
+    srcX: 160
   },
   LEFT_SIDE: {
-    srcX: 192,
-    srcY: 0,
-    numOfFrames: 2,
-    tickCap: 28
+    srcX: 192
   },
   LEFT_SIDE_CARRY: {
-    srcX: 224,
-    srcY: 0,
-    numOfFrames: 2,
-    tickCap: 28
+    srcX: 224
   }
 };
 
