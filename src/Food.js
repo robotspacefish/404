@@ -23,11 +23,11 @@ export default class Food extends GameObject {
   ]
 
   static createDonut() {
-    return new Food(259, 6, 10, 10, 115, 134, 10, 10, 'donut');
+    return new Food(259, 6, 10, 10, 99, 134, 10, 10, 'donut');
   }
 
   static createTaco() {
-    return new Food(275, 8, 10, 7, 99, 136, 10, 7, 'taco');
+    return new Food(275, 8, 10, 7, 83, 136, 10, 7, 'taco');
   }
 
   static destroy() {
