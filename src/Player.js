@@ -33,13 +33,13 @@ export default class Player extends GameObject {
     if (this.movement.right && !this.movement.left) {
       this.vx = this.acceleration;
     }
-    if (this.movement.left && !this.movement.right) {
+    else if (this.movement.left && !this.movement.right) {
       this.vx = -this.acceleration;
     }
-    if (this.movement.down && !this.movement.up) {
+    else if (this.movement.down && !this.movement.up) {
       this.vy = this.acceleration;
     }
-    if (this.movement.up && !this.movement.down) {
+    else if (this.movement.up && !this.movement.down) {
       this.vy = -this.acceleration;
     }
 
