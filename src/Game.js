@@ -125,14 +125,22 @@ export default class Game {
     EnemySpawn.all.forEach(s => this.player.handleRectangleCollision(s));
 
     Food.all.forEach((f, i) => {
-      if (this.player.isCollidedWithFood(f) && !this.player.isHolding) {
-        f.isCarried = true;
-        this.player.isHolding = true;
-        this.player.itemHeld = f.type;
+      if (this.player.isCollidedWithFood(f)) {
+        console.log('collided with', f.type)
+        if (!this.player.isHolding) {
+          f.isCarried = true;
+          this.player.isHolding = true;
+          this.player.itemHeld = f;
+        } else if (this.player.itemHeld.type !== f.type) {
+          console.log('already holding', this.player.itemHeld.type)
+          f.isCarried = true;
           foodDestroyed = Food.destroy();
+          this.player.itemHeld = f; // swap
+        }
       }
 
       if (f.isCarried) {
+        // hold food above player's head
         f.x = this.player.x + this.player.w / 2 - f.w / 2;
         f.y = this.player.y - f.h + 2
       }
