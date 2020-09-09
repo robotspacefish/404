@@ -1,4 +1,6 @@
-const TICKCAP = 28;
+const NUM_OF_FRAMES = 2;
+
+const TICK_CAP = 12;
 
 export default class GameObject {
   static all = [];
@@ -12,11 +14,33 @@ export default class GameObject {
     this.w = w;
     this.h = h;
     this.tick = 0;
-    this.currentFrame = 0;
     this.type = type;
     this.currentAnim = currentAnim;
-
+    this.currentFrame = 0;
+    this.fps = 12;
     GameObject.all.push(this);
+  }
+
+  get frameRate() {
+    return 1000 / this.fps;
+  }
+
+  advanceFrame() {
+    if (this.currentFrame < NUM_OF_FRAMES - 1) {
+      this.currentFrame++;
+    } else {
+      this.currentFrame = 0;
+    }
+
+    this.srcX = this.currentFrame * 16 + this.currentAnim.srcX;
+  }
+
+  animate() {
+    this.tick++;
+    if (this.tick === TICK_CAP) {
+      this.advanceFrame();
+      this.tick = 0;
+    }
   }
 
   static remove(objToDelete) {
@@ -25,31 +49,33 @@ export default class GameObject {
     });
   }
 
+  static clearAllExceptPlayer() {
+    GameObject.all = [GameObject.all.find(o => o.type === 'player')]
+    console.log(GameObject.all)
+  }
+
+  get left() {
+    return this.x;
+  }
+
+  get right() {
+    return this.x + this.w;
+  }
+
+  get top() {
+    return this.y;
+  }
+
+  get bottom() {
+    return this.y + this.h;
+  }
+
   get centerX() {
     return this.x + this.w / 2;
   }
 
   get centerY() {
     return this.y + this.w / 2;
-  }
-
-  animate() {
-    // if (!this.isAnimPlaying) {
-
-    // }
-    // if (this.type === 'enemy') debugger
-    this.tick++;
-    const numOfFrames = 2;
-
-    if (this.tick === TICKCAP) {
-      if (this.currentFrame === numOfFrames - 1) {
-        this.currentFrame = 0; // reset
-      } else {
-        this.currentFrame++;
-      }
-      this.srcX = this.currentFrame * 16 + this.currentAnim.srcX;
-      this.tick = 0;
-    }
   }
 
   isCollidedAtCenter(obj) {
