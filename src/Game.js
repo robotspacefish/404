@@ -115,6 +115,8 @@ export default class Game {
   }
 
   handleCollisions() {
+    let foodDestroyed;
+
     this.player.update(this.canvasHeight, this.canvasWidth);
     let foodCarriedIndex;
 
@@ -127,6 +129,7 @@ export default class Game {
         f.isCarried = true;
         this.player.isHolding = true;
         this.player.itemHeld = f.type;
+          foodDestroyed = Food.destroy();
       }
 
       if (f.isCarried) {
@@ -153,11 +156,11 @@ export default class Game {
       // })
       // check for collision with player
       if (e.isCollidedAtCenter(this.player)) {
-        if (this.player.isHolding && this.player.itemHeld === e.want) {
+        if (this.player.isHolding && this.player.itemHeld.type === e.want) {
           // if player has correct food item, kill enemy
           e.kill(i);
           // destroy food
-          Food.destroy();
+          foodDestroyed = Food.destroy();
 
           this.player.isHolding = false;
           this.player.itemHeld = null;
@@ -171,9 +174,9 @@ export default class Game {
 
     })
 
-    if (Food.all.length < 2) {
+    if (Food.all.length < 2 && foodDestroyed) {
       // create the food that was just fed/eaten
-      Food.all[0].type === 'taco' ? Food.createDonut() : Food.createTaco();
+      foodDestroyed.type === 'donut' ? Food.createDonut() : Food.createTaco();
     }
   }
 
