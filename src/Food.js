@@ -30,9 +30,12 @@ export default class Food extends GameObject {
     return new Food(275, 8, 10, 7, 99, 136, 10, 7, 'taco');
   }
 
-  static destroy(index) {
+  static destroy() {
+    const index = Food.all.findIndex(f => f.isCarried === true);
     const food = Food.all[index];
     Food.all.splice(index, 1);
     GameObject.remove(food);
+
+    return food;
   }
 }
