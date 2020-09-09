@@ -10,7 +10,7 @@ const ROWS = gameMap[0].length, COLS = gameMap.length;
 export default class Enemy extends GameObject {
   static all = [];
 
-  constructor(srcX, srcY, srcW, srcH, x, y, w, h, type, currentAnim) {
+  constructor(srcX, srcY, srcW, srcH, x, y, w, h, type = 'enemy', currentAnim) {
     super(srcX, srcY, srcW, srcH, x, y, w, h, type, currentAnim);
     this.speed = 1;
     this.vx = 0;
