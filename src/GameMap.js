@@ -43,7 +43,6 @@ export default class GameMap {
             cell = new EnemySpawn();
             cell.srcX = 256;
             cell.srcY = 16;
-            break;
         }
 
         cell.x = row * ts;
@@ -68,7 +67,5 @@ export default class GameMap {
         );
       }
     })
-
-
   }
 }
