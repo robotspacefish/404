@@ -26,18 +26,18 @@ export default class GameMap {
             break;
           case WALL:
             cell = new Wall();
-            // cell.srcX = 288;
-            // cell.srcY = 16;
             break;
           case TACO_COURT:
-            cell = new GameObject();
+            cell = new FoodCourt();
             cell.srcX = 304;
             cell.srcY = 0;
+            cell.type = "taco"
             break
           case DONUT_COURT:
-            cell = new GameObject();
+            cell = new FoodCourt();
             cell.srcX = 288;
             cell.srcY = 0;
+            cell.type = "donut";
             break;
           case ENEMY_SPAWN:
             cell = new EnemySpawn();
