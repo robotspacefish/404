@@ -5,7 +5,7 @@ import GameObject from './GameObject.js';
 import GameMap from './GameMap.js';
 import Enemy from './Enemy.js';
 import { playerAnims } from './animations.js';
-import { mapCodes, objectMap } from './map.js';
+
 import EnemySpawn from './EnemySpawn.js';
 
 const LOADING = 0,
