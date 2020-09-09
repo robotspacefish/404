@@ -38,8 +38,7 @@ export default class Game {
 
   init() {
     Food.spawn();
-    this.player = new Player(0, 0, 16, 16, null, null, 16, 16, 'player', playerAnims.DOWN);
-    this.spawnPlayer();
+    this.player = new Player(0, 0, 16, 16, 5 * 16, 11 * 16, 16, 16, 'player', playerAnims.DOWN);
     this.points = 0;
     this.intervalId = setInterval(() => {
       if (Enemy.all.length < this.maxEnemies) Enemy.spawn()
@@ -58,17 +57,6 @@ export default class Game {
 
   spawnEnemy() {
     if (Enemy.all.length < this.maxEnemies) Enemy.spawn()
-  }
-
-  spawnPlayer() {
-    for (let row = 0; row < objectMap[0].length; row++) {
-      for (let col = 0; col < objectMap.length; col++) {
-        if (objectMap[col][row] === mapCodes.PLAYER) {
-          this.player.x = row * 16;
-          this.player.y = col * 16;
-        }
-      }
-    }
   }
 
   resize() {
