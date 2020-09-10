@@ -22,7 +22,7 @@ const body = document.querySelector('body');
 function gameLoop() {
   if (game.state === TITLE) {
     cancelAnimationFrame(RAF);
-    drawText('kill.exe not found', 'Press [SPACE] to Start');
+    drawText('kill.exe not found', 'Press [SPACE] to Start', instructions());
   } else if (game.state === GAMEOVER) {
     cancelAnimationFrame(RAF);
     drawText('Oops! You\'ve Been Eaten!', 'Press[SPACE] to Try Again');
@@ -51,17 +51,28 @@ function bgResize() {
   bgCtx.imageSmoothingEnabled = false; // remove blurring from resizing
 }
 
-function drawText(text1, text2) {
+function drawText(text1, text2, extraText) {
   game.canvas.style.display = 'none';
   const fragment = document.createDocumentFragment();
   gameDiv = document.createElement('div');
   fragment.appendChild(gameDiv);
+
   gameDiv.classList.add('text-screen');
-  const mainText = document.createElement('h1')
+
+  const mainText = document.createElement('h1');
   mainText.innerText = text1;
+
   const subText = document.createElement('h3');
   subText.innerText = text2;
+
   gameDiv.appendChild(mainText);
+
+  if (extraText) {
+    const extra = document.createElement('p');;
+    extra.innerText = extraText;
+    gameDiv.appendChild(extra);
+  }
+
   gameDiv.appendChild(subText);
   body.appendChild(fragment)
 
@@ -69,6 +80,14 @@ function drawText(text1, text2) {
 
 function removeTextScreen() {
   body.removeChild(gameDiv)
+}
+
+function instructions() {
+  return `
+    You are a defense robot tasked with stopping an alien invasion, but your kill.exe file is missing. In order to get the aliens to leave you have to give them what they want: food!
+
+    Make sure to bring the right food to each alien or the food will be you!
+  `;
 }
 
 // EVENT LISTENERS ===============================================
