@@ -110,21 +110,19 @@ export default class Game {
     let foodDestroyed;
 
     this.player.update(this.canvasHeight, this.canvasWidth);
-    let foodCarriedIndex;
 
     Wall.all.forEach(w => this.player.handleRectangleCollision(w));
 
-    EnemySpawn.all.forEach(s => this.player.handleRectangleCollision(s));
+    // keep player out of spawn
+    if (this.player.y < 32) EnemySpawn.all.forEach(s => this.player.handleRectangleCollision(s));
 
     Food.all.forEach((f, i) => {
       if (this.player.isCollidedWithFood(f)) {
-        console.log('collided with', f.type)
         if (!this.player.isHolding) {
           f.isCarried = true;
           this.player.isHolding = true;
           this.player.itemHeld = f;
         } else if (this.player.itemHeld.type !== f.type) {
-          console.log('already holding', this.player.itemHeld.type)
           foodDestroyed = Food.destroy(); // destroy first
           f.isCarried = true; // otherwise this get destroyed
           this.player.itemHeld = f; // swap
