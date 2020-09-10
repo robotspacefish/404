@@ -14,14 +14,24 @@ const LOADING = 0,
 const tilesheet = new Image();
 tilesheet.src = './assets/images/404_spritesheet_compressed.png';
 const bgCtx = document.getElementById('bg').getContext('2d');
-
+let RAF;
 const game = new Game(document.getElementById('canvas'));
+let gameDiv;
+const body = document.querySelector('body');
 
 function gameLoop() {
-  game.update();
-  game.draw(tilesheet);
+  if (game.state === TITLE) {
+    cancelAnimationFrame(RAF);
+    drawText('kill.exe not found', 'Press [SPACE] to Start');
+  } else if (game.state === GAMEOVER) {
+    cancelAnimationFrame(RAF);
+    drawText('Oops! You\'ve Been Eaten!', 'Press[SPACE] to Try Again');
+  } else {
+    game.update();
+    game.draw(tilesheet);
+    RAF = requestAnimationFrame(gameLoop);
+  }
 
-  requestAnimationFrame(gameLoop, canvas);
 }
 
 function buildBackground() {
@@ -41,11 +51,34 @@ function bgResize() {
   bgCtx.imageSmoothingEnabled = false; // remove blurring from resizing
 }
 
+function drawText(text1, text2) {
+  game.canvas.style.display = 'none';
+  const fragment = document.createDocumentFragment();
+  gameDiv = document.createElement('div');
+  fragment.appendChild(gameDiv);
+  gameDiv.classList.add('text-screen');
+  const mainText = document.createElement('h1')
+  mainText.innerText = text1;
+  const subText = document.createElement('h3');
+  subText.innerText = text2;
+  gameDiv.appendChild(mainText);
+  gameDiv.appendChild(subText);
+  body.appendChild(fragment)
+
+}
+
+function removeTextScreen() {
+  body.removeChild(gameDiv)
+}
+
 // EVENT LISTENERS ===============================================
 window.addEventListener('keydown', e => {
   if (game.state === PLAY) {
     const { UP, UP_CARRY, DOWN, DOWN_CARRY, LEFT_SIDE, LEFT_SIDE_CARRY, RIGHT_SIDE, RIGHT_SIDE_CARRY } = playerAnims;
-
+    // if (e.keyCode === 32) console.log(game.debug());
+    if (e.keyCode === 32) {
+      cancelAnimationFrame(RAF);
+    };
     switch (e.key) {
       case 'ArrowUp':
         game.player.movement.up = true;
@@ -64,6 +97,9 @@ window.addEventListener('keydown', e => {
         game.player.currentAnim = game.player.isHolding ? RIGHT_SIDE_CARRY : RIGHT_SIDE;
     }
   } else if (e.keyCode === 32) {
+    game.canvas.style.display = 'block';
+    removeTextScreen();
+    RAF = requestAnimationFrame(gameLoop);
     if (game.state === TITLE) game.state = INIT;
     else if (game.state === GAMEOVER) game.state = RESET;
   }
@@ -101,7 +137,7 @@ window.addEventListener('load', () => {
 
 tilesheet.addEventListener('load', () => {
   // START =========================================================
-  requestAnimationFrame(gameLoop);
+  RAF = requestAnimationFrame(gameLoop);
 }, false);
 
 // })()
