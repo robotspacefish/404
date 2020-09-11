@@ -77,7 +77,7 @@ export default class Enemy extends GameObject {
       if (thingAbove === FLOOR) this.validDirections.push(UP);
     }
 
-    if (enemyRow < ROWS - 1) {
+    if (enemyRow < mapHeight - 1) {
       const thingBelow = gameMap[enemyRow + 1][enemyColumn];
 
       if (thingBelow === FLOOR) this.validDirections.push(DOWN)
@@ -88,7 +88,7 @@ export default class Enemy extends GameObject {
       if (thingToTheLeft === FLOOR) this.validDirections.push(LEFT);
     }
 
-    if (enemyColumn < COLS - 1) {
+    if (enemyColumn < mapWidth - 1) {
       const thingToTheRight = gameMap[enemyRow][enemyColumn + 1];
       if (thingToTheRight === FLOOR) this.validDirections.push(RIGHT);
     }
