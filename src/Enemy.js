@@ -5,7 +5,12 @@ import { enemy1Anims, enemy2Anims } from './animations.js';
 
 const { ENEMY_TYPE_1, ENEMY_TYPE_2, ENEMY_SPAWN, WALL, FLOOR } = mapCodes;
 const UP = 1, DOWN = 2, LEFT = 3, RIGHT = 4, NONE = 0;
-const ROWS = gameMap[0].length, COLS = gameMap.length;
+const DIRECTIONS = [
+  [0, -1],
+  [0, 1],
+  [-1, 0],
+  [1, 0]
+];
 
 export default class Enemy extends GameObject {
   static all = [];
@@ -113,28 +118,8 @@ export default class Enemy extends GameObject {
           this.direction = this.validDirections[randNum];
         }
 
-        switch (this.direction) {
-          case RIGHT:
-            this.currentAnim = this.anims.RIGHT_SIDE;
-            this.vx = this.speed;
-            this.vy = 0;
-            break;
-          case LEFT:
-            this.currentAnim = this.anims.LEFT_SIDE;
-            this.vx = -this.speed;
-            this.vy = 0;
-            break;
-          case UP:
-            this.currentAnim = this.anims.UP;
-            this.vy = -this.speed;
-            this.vx = 0;
-            break;
-          case DOWN:
-            this.currentAnim = this.anims.DOWN;
-            this.vy = this.speed;
-            this.vx = 0;
-            break;
-        }
+        this.vx = this.speed * DIRECTIONS[this.direction - 1][0];
+        this.vy = this.speed * DIRECTIONS[this.direction - 1][1];
       }
     }
   }
@@ -142,7 +127,6 @@ export default class Enemy extends GameObject {
   kill(index) {
     Enemy.all.splice(index, 1);
     GameObject.remove(this);
-    // TODO kill animation?
   }
 
   isAtTileCorner() {
