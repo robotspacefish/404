@@ -9,6 +9,7 @@
   <style>
     html,
     body {
+      font-family: monospace;
       margin: 0;
       width: 100%;
       height: 100%;
@@ -20,6 +21,36 @@
       transform: translate(-50%, -50%);
       position: absolute;
       image-rendering: pixelated;
+    }
+
+    .text-screen {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      position: absolute;
+      color: #3F8611;
+      width: 100%;
+      height: 100%;
+    }
+
+    .text-screen h1 {
+      font-size: 5em;
+      background: black;
+    }
+
+    .text-screen p {
+      font-size: 1.8em;
+      max-width: 800px;
+      padding: 0 5%;
+      background: black;
+
+    }
+
+    .text-screen h3 {
+      font-size: 2.5em;
+      background: black;
     }
 
     #canvas {
