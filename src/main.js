@@ -70,6 +70,7 @@ function gameLoop() {
     drawText('kill.exe not found', `${isMobile ? 'Tap' : 'Press [SPACE]'} to Start`, instructions());
   } else if (game.state === GAMEOVER) {
     cancelAnimationFrame(RAF);
+    document.querySelector('.mobile-controls').classList.add('hide');
     drawText('Oops! You\'ve Been Eaten!', `${isMobile ? 'Tap' : 'Press [SPACE]'} to Try Again`);
   } else {
     game.update();
