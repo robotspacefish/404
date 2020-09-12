@@ -29,13 +29,17 @@ function touchstartHandler(e, dir) {
 
   } else {
     if (pressed === 'spacebar') {
-      game.canvas.style.display = 'block';
-      removeTextScreen();
-      RAF = requestAnimationFrame(gameLoop);
-      if (game.state === TITLE) game.state = INIT;
-      else if (game.state === GAMEOVER) game.state = RESET;
+      handleTextScreen();
     }
   }
+}
+
+function handleTextScreen() {
+  removeTextScreen();
+  game.canvas.style.display = 'block';
+  RAF = requestAnimationFrame(gameLoop);
+  if (game.state === TITLE) game.state = INIT;
+  else if (game.state === GAMEOVER) game.state = RESET;
 }
 
 function touchendHandler(e, dir) {
@@ -43,8 +47,7 @@ function touchendHandler(e, dir) {
   if (dir) handleRelease(e, dir);
 }
 
-const LOADING = 0,
-  INIT = 1,
+const INIT = 1,
   TITLE = 2,
   PLAY = 3,
   GAMEOVER = 4,
@@ -152,17 +155,11 @@ function getTouchPressed(dir) {
 }
 
 function handlePlay(pressed) {
-  if (pressed === 'spacebar') {
-    isPaused = !isPaused;
-    isPaused ? cancelAnimationFrame(RAF) : RAF = requestAnimationFrame(gameLoop);
-    console.log(game.debug());
-
-    game.canvas.style.display = 'block';
-    removeTextScreen();
-    RAF = requestAnimationFrame(gameLoop);
-    if (game.state === TITLE) game.state = INIT;
-    else if (game.state === GAMEOVER) game.state = RESET;
-  }
+  // if (pressed === 'spacebar') {
+  // isPaused = !isPaused;
+  // isPaused ? cancelAnimationFrame(RAF) : RAF = requestAnimationFrame(gameLoop);
+  // console.log(game.debug());
+  // }
 
   // Up upArrow / W / Z
   if (pressed === 'up') {
@@ -198,11 +195,7 @@ window.addEventListener('keydown', e => {
 
   } else {
     if (pressed === 'spacebar') {
-      game.canvas.style.display = 'block';
-      removeTextScreen();
-      RAF = requestAnimationFrame(gameLoop);
-      if (game.state === TITLE) game.state = INIT;
-      else if (game.state === GAMEOVER) game.state = RESET;
+      handleTextScreen();
     }
   }
 });
