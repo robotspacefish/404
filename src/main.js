@@ -1,6 +1,9 @@
 import Game from './Game.js';
 import { playerAnims } from './animations.js';
 
+let isMobile = !!(navigator.userAgent.toLowerCase().match(/mobile/i) || navigator.userAgent.toLowerCase().match(/tablet/i) || navigator.userAgent.toLowerCase().match(/android/i) || navigator.userAgent.toLowerCase().match(/iphone/i) || navigator.userAgent.toLowerCase().match(/ipad/i));
+;
+
 const { UP, UP_CARRY, DOWN, DOWN_CARRY, LEFT_SIDE, LEFT_SIDE_CARRY, RIGHT_SIDE, RIGHT_SIDE_CARRY } = playerAnims;
 
 const upBtn = document.getElementById('up-btn');
@@ -234,7 +237,10 @@ window.addEventListener('load', () => {
 }, false)
 
 tilesheet.addEventListener('load', () => {
-  // START =========================================================
+  if (isMobile) {
+    document.querySelector('.mobile-controls').classList.remove('hide');
+  }
+
   RAF = requestAnimationFrame(gameLoop);
 }, false);
 
