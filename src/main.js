@@ -138,7 +138,7 @@ function instructions() {
 }
 
 function handleRelease(e, dir) {
-  game.player.movement[dir] = false;
+  if (game.state === PLAY) game.player.movement[dir] = false;
 }
 
 function getKeyPressed(k) {
