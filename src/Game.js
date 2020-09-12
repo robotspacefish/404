@@ -59,10 +59,6 @@ export default class Game {
     this.state = INIT;
   }
 
-  spawnEnemy() {
-    if (Enemy.all.length < this.maxEnemies) Enemy.spawn()
-  }
-
   resize() {
     let cWidth = window.innerWidth,
       cHeight = window.innerHeight;
@@ -136,30 +132,15 @@ export default class Game {
       }
     })
 
-    if (this.player.x >= 3 * 16 && this.player.x <= 8 * 16 && this.player.y >= 8 * 16 && this.player.y <= 9 * 16) {
-      // check when player is within range - check from row above to keep player out of foodcourt
-      FoodCourt.all.forEach(fc => {
-        //
-        if (this.player.isHolding && this.player.itemHeld.type === fc.type) {
-          this.player.handleRectangleCollision(fc)
-        }
-      })
-    }
 
     Enemy.all.forEach((e, i) => {
       e.update(this.player);
-
-      // temporary enemy collision with another enemy
-      // const otherEnemies = [...Enemy.all];
-      // otherEnemies.splice(i, 1);
+      const otherEnemies = [...Enemy.all];
+      otherEnemies.splice(i, 1);
 
       // otherEnemies.forEach(otherEnemy => {
-      //   // TODO find direction they bumped and remove it from valid directions
-
-      //   if (otherEnemy.isCollidedAtCenter(e)) {
-      //     e.changeDirection();
-
-      //     otherEnemy.changeDirection();
+      //   if (e.handleRectangleCollision(otherEnemy)) {
+      //     // find direction there is a collision
       //   }
       // })
       // check for collision with player

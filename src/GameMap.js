@@ -1,14 +1,13 @@
 import { mapCodes, gameMap } from './map.js';
-import GameObject from './GameObject.js';
 import EnemySpawn from './EnemySpawn.js';
 import Wall from './Wall.js';
 import Floor from './Floor.js';
+import FoodCourt from './FoodCourt.js';
 
 export default class GameMap {
 
   constructor(tileSize) {
     this.tileSize = tileSize;
-    this.isDrawn = false;
     this.cells = [];
     this.build();
   }

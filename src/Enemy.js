@@ -1,9 +1,9 @@
 import GameObject from './GameObject.js';
 import EnemySpawn from './EnemySpawn.js';
-import { mapCodes, gameMap } from './map.js';
+import { mapCodes, gameMap, mapHeight, mapWidth } from './map.js';
 import { enemy1Anims, enemy2Anims } from './animations.js';
 
-const { ENEMY_TYPE_1, ENEMY_TYPE_2, ENEMY_SPAWN, WALL, FLOOR } = mapCodes;
+const { FLOOR } = mapCodes;
 const UP = 1, DOWN = 2, LEFT = 3, RIGHT = 4, NONE = 0;
 const DIRECTIONS = [
   [0, -1],
@@ -74,7 +74,6 @@ export default class Enemy extends GameObject {
 
     const enemyColumn = Math.floor(this.x / 16);
     const enemyRow = Math.floor(this.y / 16);
-
     // find contents of surrounding cells
     if (enemyRow > 0) {
       const thingAbove = gameMap[enemyRow - 1][enemyColumn];
