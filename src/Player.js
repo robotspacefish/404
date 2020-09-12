@@ -20,8 +20,6 @@ export default class Player extends GameObject {
     this.isHolding = false;
   }
 
-
-
   isCollidedWithFood(food) {
     return food.x - 10 <= this.x && food.x + food.w + 10 >= this.x + this.w &&
       this.y > food.y &&

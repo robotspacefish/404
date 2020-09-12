@@ -168,6 +168,7 @@ export default class Game {
       //     // find direction there is a collision
       //   }
       // })
+
       // check for collision with player
       if (e.isCollidedAtCenter(this.player)) {
         if (this.player.isHolding && this.player.itemHeld.type === e.want) {
