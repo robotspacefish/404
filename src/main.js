@@ -92,55 +92,80 @@ function instructions() {
 }
 
 // EVENT LISTENERS ===============================================
+
+
+
 window.addEventListener('keydown', e => {
   if (game.state === PLAY) {
     const { UP, UP_CARRY, DOWN, DOWN_CARRY, LEFT_SIDE, LEFT_SIDE_CARRY, RIGHT_SIDE, RIGHT_SIDE_CARRY } = playerAnims;
+
     if (e.keyCode === 32) {
       isPaused = !isPaused;
       isPaused ? cancelAnimationFrame(RAF) : RAF = requestAnimationFrame(gameLoop);
       console.log(game.debug());
+
+      game.canvas.style.display = 'block';
+      removeTextScreen();
+      RAF = requestAnimationFrame(gameLoop);
+      if (game.state === TITLE) game.state = INIT;
+      else if (game.state === GAMEOVER) game.state = RESET;
     }
-    switch (e.key) {
-      case 'ArrowUp':
-        game.player.movement.up = true;
-        game.player.currentAnim = game.player.isHolding ? UP_CARRY : UP;
-        break;
-      case 'ArrowDown':
-        game.player.movement.down = true;
-        game.player.currentAnim = game.player.isHolding ? DOWN_CARRY : DOWN;
-        break;
-      case 'ArrowLeft':
-        game.player.movement.left = true;
-        game.player.currentAnim = game.player.isHolding ? LEFT_SIDE_CARRY : LEFT_SIDE;
-        break;
-      case 'ArrowRight':
-        game.player.movement.right = true;
-        game.player.currentAnim = game.player.isHolding ? RIGHT_SIDE_CARRY : RIGHT_SIDE;
+
+    // Up upArrow / W / Z
+    if (e.keyCode == 38 || e.keyCode == 90 || e.keyCode == 87) {
+      game.player.movement.up = true;
+      game.player.currentAnim = game.player.isHolding ? UP_CARRY : UP;
     }
-  } else if (e.keyCode === 32) {
-    game.canvas.style.display = 'block';
-    removeTextScreen();
-    RAF = requestAnimationFrame(gameLoop);
-    if (game.state === TITLE) game.state = INIT;
-    else if (game.state === GAMEOVER) game.state = RESET;
+
+    // Right (rightArrow / D)
+    if (e.keyCode == 39 || e.keyCode == 68) {
+      game.player.movement.right = true;
+      game.player.currentAnim = game.player.isHolding ? RIGHT_SIDE_CARRY : RIGHT_SIDE;
+    }
+
+    // Down (downArrow / S)
+    if (e.keyCode == 40 || e.keyCode == 83) {
+      game.player.movement.down = true;
+      game.player.currentAnim = game.player.isHolding ? DOWN_CARRY : DOWN;
+    }
+
+    // Left (leftArrow / A / Q)
+    if (e.keyCode == 37 || e.keyCode == 65 || e.keyCode == 81) {
+      game.player.movement.left = true;
+      game.player.currentAnim = game.player.isHolding ? LEFT_SIDE_CARRY : LEFT_SIDE;
+    }
+  } else {
+    if (e.keyCode === 32) {
+      game.canvas.style.display = 'block';
+      removeTextScreen();
+      RAF = requestAnimationFrame(gameLoop);
+      if (game.state === TITLE) game.state = INIT;
+      else if (game.state === GAMEOVER) game.state = RESET;
+    }
   }
 });
 
 window.addEventListener('keyup', e => {
-  switch (e.key) {
-    case 'ArrowUp':
-      game.player.movement.up = false;
-      break;
-    case 'ArrowDown':
-      game.player.movement.down = false;
-      break;
-    case 'ArrowLeft':
-      game.player.movement.left = false;
-      break;
-    case 'ArrowRight':
-      game.player.movement.right = false;
-      break;
+  // Up upArrow / W / Z
+  if (e.keyCode == 38 || e.keyCode == 90 || e.keyCode == 87) {
+    game.player.movement.up = false;
   }
+
+  // Right (rightArrow / D)
+  if (e.keyCode == 39 || e.keyCode == 68) {
+    game.player.movement.right = false;
+  }
+
+  // Down (downArrow / S)
+  if (e.keyCode == 40 || e.keyCode == 83) {
+    game.player.movement.down = false;
+  }
+
+  // Left (leftArrow / A / Q)
+  if (e.keyCode == 37 || e.keyCode == 65 || e.keyCode == 81) {
+    game.player.movement.left = false;
+  }
+
 });
 
 window.addEventListener('load', () => {
