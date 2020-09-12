@@ -11,17 +11,14 @@ const downBtn = document.getElementById('down-btn');
 const leftBtn = document.getElementById('left-btn');
 const rightBtn = document.getElementById('right-btn');
 
-upBtn.addEventListener('touchstart', e => touchstartHandler(e, 'up'), false)
-downBtn.addEventListener('touchstart', e => touchstartHandler(e, 'down'), false)
-leftBtn.addEventListener('touchstart', e => touchstartHandler(e, 'left'), false)
-rightBtn.addEventListener('touchstart', e => touchstartHandler(e, 'right'), false)
-upBtn.addEventListener('touchend', e => touchendHandler(e, 'up'), false)
-downBtn.addEventListener('touchend', e => touchendHandler(e, 'down'), false)
-leftBtn.addEventListener('touchend', e => touchendHandler(e, 'left'), false)
-rightBtn.addEventListener('touchend', e => touchendHandler(e, 'right'), false)
-window.addEventListener('touchstart', touchstartHandler, false)
-window.addEventListener('touchend', touchendHandler, false)
-
+const btns = document.querySelectorAll('button');
+btns.forEach(btn => {
+  const dir = btn.id.split('-')[0];
+  btn.addEventListener('touchstart', e => touchstartHandler(e, dir), false);
+  btn.addEventListener('touchend', e => touchendHandler(e, dir), false)
+  btn.addEventListener("touchcancel", e => console.log('touch cancel'), false);
+  btn.addEventListener("touchmove", e => console.log('touch move'), false);
+})
 
 function touchstartHandler(e, dir) {
   e.preventDefault();
