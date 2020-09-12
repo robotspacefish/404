@@ -26,7 +26,7 @@ export default class Game {
 
     // logical
     this.width = mapWidth * 16;
-    this.height = mapHeight * 16 + 16; // +16 leaves space for UI at the bottom
+    this.height = mapHeight * 16;
     this.maxWidth = this.width * 3;
     this.maxHeight = this.height * 3;
 
