@@ -8,6 +8,7 @@ const LOADING = 0,
   GAMEOVER = 4,
   RESET = 5;
 
+let isPaused = false;
 
 // (function () {
 // GLOBALS =======================================================
@@ -94,10 +95,11 @@ function instructions() {
 window.addEventListener('keydown', e => {
   if (game.state === PLAY) {
     const { UP, UP_CARRY, DOWN, DOWN_CARRY, LEFT_SIDE, LEFT_SIDE_CARRY, RIGHT_SIDE, RIGHT_SIDE_CARRY } = playerAnims;
-    // if (e.keyCode === 32) console.log(game.debug());
     if (e.keyCode === 32) {
-      cancelAnimationFrame(RAF);
-    };
+      isPaused = !isPaused;
+      isPaused ? cancelAnimationFrame(RAF) : RAF = requestAnimationFrame(gameLoop);
+      console.log(game.debug());
+    }
     switch (e.key) {
       case 'ArrowUp':
         game.player.movement.up = true;

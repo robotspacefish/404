@@ -40,6 +40,14 @@ export default class Game {
     this.intervalId = null;
   }
 
+  debug() {
+    // console.log(this);
+    // // console.log(GameObject.all);
+    // Food.all.forEach((f, i) => console.log(`${i} ${f.type} isCarried: ${f.isCarried}`))
+    // console.log(FoodCourt.all)
+    console.log(Enemy.all)
+  }
+
   init() {
     Food.spawn();
     this.player = new Player(0, 0, 16, 16, 5 * 16, 11 * 16, 16, 16, 'player', playerAnims.DOWN);
