@@ -26,7 +26,7 @@ function gameLoop() {
     drawText('kill.exe not found', 'Press [SPACE] to Start', instructions());
   } else if (game.state === GAMEOVER) {
     cancelAnimationFrame(RAF);
-    drawText('Oops! You\'ve Been Eaten!', 'Press[SPACE] to Try Again');
+    drawText('Oops! You\'ve Been Eaten!', 'Press [SPACE] to Try Again');
   } else {
     game.update();
     game.draw(tilesheet);
