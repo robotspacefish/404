@@ -16,7 +16,9 @@ const LOADING = 0,
   GAMEOVER = 4, RESET = 5;
 
 export default class Game {
-  constructor(canvas) {
+  constructor(canvas, isMobile) {
+    this.isMobile = isMobile;
+
     this.player;
 
     this.points;
@@ -55,6 +57,10 @@ export default class Game {
     this.intervalId = setInterval(() => {
       if (Enemy.all.length < this.maxEnemies) Enemy.spawn()
     }, 2000);
+
+    if (this.isMobile) { // show arrow controls
+      document.querySelector('.mobile-controls').classList.remove('hide');
+    }
 
     this.state = PLAY;
   }

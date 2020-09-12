@@ -190,7 +190,6 @@ function handlePlay(pressed) {
 
 // EVENT LISTENERS ===============================================
 window.addEventListener('keydown', e => {
-  // debugger
   let pressed = getKeyPressed(e.keyCode);
 
   if (game.state === PLAY) {
@@ -245,11 +244,6 @@ window.addEventListener('load', () => {
 }, false)
 
 tilesheet.addEventListener('load', () => {
-  if (isMobile) {
-    document.querySelector('.mobile-controls').classList.remove('hide');
-  }
 
   RAF = requestAnimationFrame(gameLoop);
 }, false);
-
-// })()
