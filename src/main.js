@@ -11,18 +11,14 @@ const downBtn = document.getElementById('down-btn');
 const leftBtn = document.getElementById('left-btn');
 const rightBtn = document.getElementById('right-btn');
 
-// window.addEventListener('touchstart', touchstartHandler, false)
-// window.addEventListener('touchend', touchendHandler, false)
-
-
 const btns = document.querySelectorAll('button');
 
 btns.forEach(btn => {
   const dir = btn.id.split('-')[0];
-  btn.addEventListener('touchstart', e => touchstartHandler(e, dir), false);
-  btn.addEventListener('touchend', e => touchendHandler(e, dir), false)
-  btn.addEventListener("touchcancel", e => console.log('touch cancel'), false);
-  btn.addEventListener("touchmove", e => console.log('touch move'), false);
+  btn.addEventListener('touchstart', e => touchstartHandler(e, dir), { passive: false });
+  btn.addEventListener('touchend', e => touchendHandler(e, dir), { passive: false })
+  btn.addEventListener("touchcancel", e => console.log('touch cancel'), { passive: false });
+  btn.addEventListener("touchmove", e => console.log('touch move'), { passive: false });
 })
 
 function touchstartHandler(e, dir) {
