@@ -45,7 +45,7 @@ export default class Game {
     this.player = new Player(0, 0, 16, 16, 5 * 16, 11 * 16, 16, 16, 'player', playerAnims.DOWN);
     this.points = 0;
     this.intervalId = setInterval(() => {
-      // if (Enemy.all.length < this.maxEnemies) Enemy.spawn()
+      if (Enemy.all.length < this.maxEnemies) Enemy.spawn()
     }, 2000);
 
     this.state = PLAY;
