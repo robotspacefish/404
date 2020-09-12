@@ -1,6 +1,35 @@
 import Game from './Game.js';
 import { playerAnims } from './animations.js';
 
+const { UP, UP_CARRY, DOWN, DOWN_CARRY, LEFT_SIDE, LEFT_SIDE_CARRY, RIGHT_SIDE, RIGHT_SIDE_CARRY } = playerAnims;
+
+const upBtn = document.getElementById('up-btn');
+const downBtn = document.getElementById('down-btn');
+const leftBtn = document.getElementById('left-btn');
+const rightBtn = document.getElementById('right-btn');
+
+upBtn.addEventListener('touchstart', e => touchstartHandler(e, 'up'), false)
+downBtn.addEventListener('touchstart', e => touchstartHandler(e, 'down'), false)
+leftBtn.addEventListener('touchstart', e => touchstartHandler(e, 'left'), false)
+rightBtn.addEventListener('touchstart', e => touchstartHandler(e, 'right'), false)
+upBtn.addEventListener('touchend', e => touchendHandler(e, 'up'), false)
+downBtn.addEventListener('touchend', e => touchendHandler(e, 'down'), false)
+leftBtn.addEventListener('touchend', e => touchendHandler(e, 'left'), false)
+rightBtn.addEventListener('touchend', e => touchendHandler(e, 'right'), false)
+
+function touchstartHandler(e, dir) {
+  e.preventDefault();
+  const pressed = getTouchPressed(dir);
+  if (game.state === PLAY) {
+    handlePlay(pressed)
+
+  }
+}
+
+function touchendHandler(e, dir) {
+  handleRelease(e, dir);
+}
+
 const LOADING = 0,
   INIT = 1,
   TITLE = 2,
@@ -97,46 +126,65 @@ function handleRelease(e, dir) {
   game.player.movement[dir] = false;
 }
 
+function getKeyPressed(k) {
+  if (k === 32) return 'spacebar';
+  else if (k === 38 || k === 90 || k === 87) return 'up';
+  else if (k === 39 || k === 68) return 'right';
+  else if (k === 40 || k === 83) return 'down';
+  else if (k === 37 || k === 65 || k === 81) return 'left';
+}
+
+function getTouchPressed(dir) {
+  return !dir ? 'spacebar' : dir;
+
+}
+
+function handlePlay(pressed) {
+  if (pressed === 'spacebar') {
+    isPaused = !isPaused;
+    isPaused ? cancelAnimationFrame(RAF) : RAF = requestAnimationFrame(gameLoop);
+    console.log(game.debug());
+
+    game.canvas.style.display = 'block';
+    removeTextScreen();
+    RAF = requestAnimationFrame(gameLoop);
+    if (game.state === TITLE) game.state = INIT;
+    else if (game.state === GAMEOVER) game.state = RESET;
+  }
+
+  // Up upArrow / W / Z
+  if (pressed === 'up') {
+    game.player.movement.up = true;
+    game.player.currentAnim = game.player.isHolding ? UP_CARRY : UP;
+  }
+
+  // Right (rightArrow / D)
+  if (pressed === 'right') {
+    game.player.movement.right = true;
+    game.player.currentAnim = game.player.isHolding ? RIGHT_SIDE_CARRY : RIGHT_SIDE;
+  }
+
+  // Down (downArrow / S)
+  if (pressed === 'down') {
+    game.player.movement.down = true;
+    game.player.currentAnim = game.player.isHolding ? DOWN_CARRY : DOWN;
+  }
+
+  // Left (leftArrow / A / Q)
+  if (pressed === 'left') {
+    game.player.movement.left = true;
+    game.player.currentAnim = game.player.isHolding ? LEFT_SIDE_CARRY : LEFT_SIDE;
+  }
+}
+
 // EVENT LISTENERS ===============================================
 window.addEventListener('keydown', e => {
+  // debugger
+  let pressed = getKeyPressed(e.keyCode);
+
   if (game.state === PLAY) {
-    const { UP, UP_CARRY, DOWN, DOWN_CARRY, LEFT_SIDE, LEFT_SIDE_CARRY, RIGHT_SIDE, RIGHT_SIDE_CARRY } = playerAnims;
+    handlePlay(pressed);
 
-    if (e.keyCode === 32) {
-      isPaused = !isPaused;
-      isPaused ? cancelAnimationFrame(RAF) : RAF = requestAnimationFrame(gameLoop);
-      console.log(game.debug());
-
-      game.canvas.style.display = 'block';
-      removeTextScreen();
-      RAF = requestAnimationFrame(gameLoop);
-      if (game.state === TITLE) game.state = INIT;
-      else if (game.state === GAMEOVER) game.state = RESET;
-    }
-
-    // Up upArrow / W / Z
-    if (e.keyCode == 38 || e.keyCode == 90 || e.keyCode == 87) {
-      game.player.movement.up = true;
-      game.player.currentAnim = game.player.isHolding ? UP_CARRY : UP;
-    }
-
-    // Right (rightArrow / D)
-    if (e.keyCode == 39 || e.keyCode == 68) {
-      game.player.movement.right = true;
-      game.player.currentAnim = game.player.isHolding ? RIGHT_SIDE_CARRY : RIGHT_SIDE;
-    }
-
-    // Down (downArrow / S)
-    if (e.keyCode == 40 || e.keyCode == 83) {
-      game.player.movement.down = true;
-      game.player.currentAnim = game.player.isHolding ? DOWN_CARRY : DOWN;
-    }
-
-    // Left (leftArrow / A / Q)
-    if (e.keyCode == 37 || e.keyCode == 65 || e.keyCode == 81) {
-      game.player.movement.left = true;
-      game.player.currentAnim = game.player.isHolding ? LEFT_SIDE_CARRY : LEFT_SIDE;
-    }
   } else {
     if (e.keyCode === 32) {
       game.canvas.style.display = 'block';
