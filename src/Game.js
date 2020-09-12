@@ -136,12 +136,15 @@ export default class Game {
       }
     })
 
-    FoodCourt.all.forEach(fc => {
-      //
-      if (this.player.isHolding && this.player.itemHeld.type === fc.type) {
-        this.player.handleRectangleCollision(fc)
-      }
-    })
+    if (this.player.x >= 3 * 16 && this.player.x <= 8 * 16 && this.player.y >= 8 * 16 && this.player.y <= 9 * 16) {
+      // check when player is within range - check from row above to keep player out of foodcourt
+      FoodCourt.all.forEach(fc => {
+        //
+        if (this.player.isHolding && this.player.itemHeld.type === fc.type) {
+          this.player.handleRectangleCollision(fc)
+        }
+      })
+    }
 
     Enemy.all.forEach((e, i) => {
       e.update(this.player);
