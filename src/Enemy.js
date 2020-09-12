@@ -23,7 +23,7 @@ export default class Enemy extends GameObject {
 
     this.validDirections = [];
     this.direction = NONE;
-    this.hunt = Math.random() > 0.75 ? true : false;
+    this.hunt = Math.random() >= 0.45 ? true : false;
 
     this.want;
 
@@ -33,7 +33,7 @@ export default class Enemy extends GameObject {
 
   static spawn(x = 0, y = 0) {
     let v;
-    if (Math.random() > 0.5) {
+    if (Math.random() >= 0.5) {
       v = {
         want: 'taco',
         anims: enemy1Anims
