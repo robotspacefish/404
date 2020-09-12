@@ -189,7 +189,7 @@ window.addEventListener('keydown', e => {
     handlePlay(pressed);
 
   } else {
-    if (e.keyCode === 32) {
+    if (pressed === 'spacebar') {
       game.canvas.style.display = 'block';
       removeTextScreen();
       RAF = requestAnimationFrame(gameLoop);
