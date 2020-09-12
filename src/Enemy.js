@@ -23,7 +23,7 @@ export default class Enemy extends GameObject {
 
     this.validDirections = [];
     this.direction = NONE;
-    this.hunt = Math.random() >= 0.45 ? true : false;
+    this.hunt = Math.random() >= 0.25 ? true : false;
 
     this.want;
 
