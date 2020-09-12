@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>404</title>
 
   <style>
@@ -63,14 +63,18 @@
       height: 100%;
       background-color: black;
     }
+
+    @media screen and (max-width: 450px) {
+      body {
+        font-size: 10px;
+      }
+    }
   </style>
 </head>
 
 <body>
-  <!-- <div id="game"> -->
   <canvas id="bg"></canvas>
   <canvas id="canvas"></canvas>
-  <!-- </div> -->
 
   <script src="./main.js"></script>
 </body>
