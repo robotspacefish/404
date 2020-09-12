@@ -50,13 +50,11 @@ const LOADING = 0,
 
 let isPaused = false;
 
-// (function () {
-// GLOBALS =======================================================
 const tilesheet = new Image();
 tilesheet.src = './assets/images/404_spritesheet_compressed.png';
 const bgCtx = document.getElementById('bg').getContext('2d');
 let RAF;
-const game = new Game(document.getElementById('canvas'));
+const game = new Game(document.getElementById('canvas'), isMobile);
 let gameDiv;
 const body = document.querySelector('body');
 
