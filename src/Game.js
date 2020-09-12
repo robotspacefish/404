@@ -107,7 +107,11 @@ export default class Game {
 
     this.player.update(this.canvasHeight, this.canvasWidth);
 
-    Wall.all.forEach(w => this.player.handleRectangleCollision(w));
+    Wall.all.forEach(w => {
+      this.player.handleRectangleCollision(w);
+      Enemy.all.forEach(e => e.handleRectangleCollision(w))
+
+    });
 
     // keep player out of spawn
     if (this.player.y < 32) EnemySpawn.all.forEach(s => this.player.handleRectangleCollision(s));
