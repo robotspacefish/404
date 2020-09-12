@@ -93,10 +93,11 @@ function instructions() {
   `;
 }
 
+function handleRelease(e, dir) {
+  game.player.movement[dir] = false;
+}
+
 // EVENT LISTENERS ===============================================
-
-
-
 window.addEventListener('keydown', e => {
   if (game.state === PLAY) {
     const { UP, UP_CARRY, DOWN, DOWN_CARRY, LEFT_SIDE, LEFT_SIDE_CARRY, RIGHT_SIDE, RIGHT_SIDE_CARRY } = playerAnims;
@@ -150,22 +151,23 @@ window.addEventListener('keydown', e => {
 window.addEventListener('keyup', e => {
   // Up upArrow / W / Z
   if (e.keyCode == 38 || e.keyCode == 90 || e.keyCode == 87) {
-    game.player.movement.up = false;
+    handleRelease(e, 'up');
   }
 
   // Right (rightArrow / D)
   if (e.keyCode == 39 || e.keyCode == 68) {
-    game.player.movement.right = false;
+    handleRelease(e, 'right');
   }
 
   // Down (downArrow / S)
   if (e.keyCode == 40 || e.keyCode == 83) {
-    game.player.movement.down = false;
+    handleRelease(e, 'down');
+
   }
 
   // Left (leftArrow / A / Q)
   if (e.keyCode == 37 || e.keyCode == 65 || e.keyCode == 81) {
-    game.player.movement.left = false;
+    handleRelease(e, 'left');
   }
 
 });
