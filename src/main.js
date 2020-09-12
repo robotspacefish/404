@@ -19,6 +19,9 @@ upBtn.addEventListener('touchend', e => touchendHandler(e, 'up'), false)
 downBtn.addEventListener('touchend', e => touchendHandler(e, 'down'), false)
 leftBtn.addEventListener('touchend', e => touchendHandler(e, 'left'), false)
 rightBtn.addEventListener('touchend', e => touchendHandler(e, 'right'), false)
+window.addEventListener('touchstart', touchstartHandler, false)
+window.addEventListener('touchend', touchendHandler, false)
+
 
 function touchstartHandler(e, dir) {
   e.preventDefault();
@@ -26,11 +29,19 @@ function touchstartHandler(e, dir) {
   if (game.state === PLAY) {
     handlePlay(pressed)
 
+  } else {
+    if (pressed === 'spacebar') {
+      game.canvas.style.display = 'block';
+      removeTextScreen();
+      RAF = requestAnimationFrame(gameLoop);
+      if (game.state === TITLE) game.state = INIT;
+      else if (game.state === GAMEOVER) game.state = RESET;
+    }
   }
 }
 
 function touchendHandler(e, dir) {
-  handleRelease(e, dir);
+  if (dir) handleRelease(e, dir);
 }
 
 const LOADING = 0,
