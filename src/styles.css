@@ -59,9 +59,8 @@
     .mobile-controls {
       z-index: 10000;
       position: fixed;
-      bottom: 3%;
-      right: 5%;
-      width: 45%;
+      bottom: 0;
+      width: 100%;
       height: auto;
       display: flex;
       align-items: center;
@@ -70,20 +69,17 @@
     .mobile-controls div {
       height: 100%;
       width: 100%;
+      margin: 10px;
+      display: flex;
     }
 
     .mobile-controls button {
-      font-size: 4em;
-      /* background: rgba(0,0,0,0.3); */
-      background: none;
-
+      font-size: 3.6em;
+      background: rgba(0,0,0,0.3);
       border-radius: 3px;
       padding: 5px;
-      /* color:  rgba(0, 128, 0, 0.6); */
-      color:  rgba(0, 128, 0, 1);
-      color:  white;
-      /* border: 1px solid rgba(0, 128, 0, 0.4); */
-      border: 1px solid white;
+      color:  rgba(0, 128, 0, 0.6);
+      border: 1px solid rgba(0, 128, 0, 0.6);
       width: 100%;
     }
 
