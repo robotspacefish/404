@@ -134,7 +134,7 @@ function instructions() {
 
     Make sure to bring the right food to each alien or the food will be you!
 
-    Controls: WASD | ZQSD | Arrow Keys
+    Controls: ${isMobile ? 'Arrow Buttons' : 'WASD | ZQSD | Arrow Keys'}
   `;
 }
 
