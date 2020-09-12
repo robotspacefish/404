@@ -11,7 +11,12 @@ const downBtn = document.getElementById('down-btn');
 const leftBtn = document.getElementById('left-btn');
 const rightBtn = document.getElementById('right-btn');
 
+// window.addEventListener('touchstart', touchstartHandler, false)
+// window.addEventListener('touchend', touchendHandler, false)
+
+
 const btns = document.querySelectorAll('button');
+
 btns.forEach(btn => {
   const dir = btn.id.split('-')[0];
   btn.addEventListener('touchstart', e => touchstartHandler(e, dir), false);
@@ -21,7 +26,7 @@ btns.forEach(btn => {
 })
 
 function touchstartHandler(e, dir) {
-  e.preventDefault();
+  if (e.cancelable) e.preventDefault();
   const pressed = getTouchPressed(dir);
   if (game.state === PLAY) {
     handlePlay(pressed)
@@ -38,6 +43,7 @@ function touchstartHandler(e, dir) {
 }
 
 function touchendHandler(e, dir) {
+  if (e.cancelable) e.preventDefault();
   if (dir) handleRelease(e, dir);
 }
 
