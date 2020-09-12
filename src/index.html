@@ -5,77 +5,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>kill.exe not found</title>
-
-  <style>
-    html,
-    body {
-      font-family: monospace;
-      margin: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    canvas {
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      position: absolute;
-      image-rendering: pixelated;
-    }
-
-    .text-screen {
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      align-items: center;
-      position: absolute;
-      color: #3F8611;
-      width: 100%;
-      height: 100%;
-    }
-
-    .text-screen h1 {
-      font-size: 5em;
-      background: black;
-    }
-
-    .text-screen p {
-      font-size: 1.8em;
-      max-width: 800px;
-      padding: 0 5%;
-      background: black;
-
-    }
-
-    .text-screen h3 {
-      font-size: 2.5em;
-      background: black;
-    }
-
-    #canvas {
-      z-index: 2;
-    }
-
-    #bg {
-      flex: 1;
-      width: 100%;
-      height: 100%;
-      background-color: black;
-    }
-
-    @media screen and (max-width: 450px) {
-      body {
-        font-size: 10px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="./styles.css">
 </head>
 
 <body>
   <canvas id="bg"></canvas>
   <canvas id="canvas"></canvas>
-
+  <div class="mobile-controls hide">
+    <div>
+      <button id="left-btn">&larr;</button>
+    </div>
+    <div>
+      <button id="up-btn">&uarr;</button>
+      <button id="down-btn">&darr;</button>
+    </div>
+    <div>
+      <button id="right-btn">&rarr;</button>
+    </div>
+  </div>
   <script src="./main.js"></script>
 </body>
 
