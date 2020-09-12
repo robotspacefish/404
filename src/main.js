@@ -64,19 +64,20 @@ let gameDiv;
 const body = document.querySelector('body');
 
 function gameLoop() {
-  if (game.state === TITLE) {
+  if (game.state === TITLE || game.state === GAMEOVER) {
     cancelAnimationFrame(RAF);
-    drawText('kill.exe not found', `${isMobile ? 'Tap' : 'Press [SPACE]'} to Start`, instructions());
-  } else if (game.state === GAMEOVER) {
-    cancelAnimationFrame(RAF);
+    window.addEventListener('touchstart', touchstartHandler, { passive: false });
+    window.addEventListener('touchend', touchendHandler, { passive: false });
     document.querySelector('.mobile-controls').classList.add('hide');
-    drawText('Oops! You\'ve Been Eaten!', `${isMobile ? 'Tap' : 'Press [SPACE]'} to Try Again`);
+
+    game.state === TITLE ?
+      drawText('kill.exe not found', `${isMobile ? 'Tap' : 'Press [SPACE]'} to Start`, instructions()) :
+      drawText('Oops! You\'ve Been Eaten!', `${isMobile ? 'Tap' : 'Press [SPACE]'} to Try Again`);
   } else {
     game.update();
     game.draw(tilesheet);
     RAF = requestAnimationFrame(gameLoop);
   }
-
 }
 
 function buildBackground() {
