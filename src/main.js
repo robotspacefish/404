@@ -1,6 +1,7 @@
 import Game from './Game.js';
 import { playerAnims } from './animations.js';
 import { INIT, TITLE, PLAY, GAMEOVER, RESET } from './helpers';
+import t from './assets/images/404_spritesheet_compressed.png';
 
 let isMobile = !!(navigator.userAgent.toLowerCase().match(/mobile/i) || navigator.userAgent.toLowerCase().match(/tablet/i) || navigator.userAgent.toLowerCase().match(/android/i) || navigator.userAgent.toLowerCase().match(/iphone/i) || navigator.userAgent.toLowerCase().match(/ipad/i));
 ;
@@ -18,7 +19,7 @@ const { UP, UP_CARRY, DOWN, DOWN_CARRY, LEFT_SIDE, LEFT_SIDE_CARRY, RIGHT_SIDE, 
 const btns = document.querySelectorAll('button');
 
 const tilesheet = new Image();
-tilesheet.src = './assets/images/404_spritesheet_compressed.png';
+tilesheet.src = t;
 
 
 // MAIN GAME LOOP ===============================================
