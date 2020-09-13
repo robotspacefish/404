@@ -1,12 +1,6 @@
-assets
-lib
-
 .DS_Store
 node_modules
 dist
 .cache
-
-# debug
-mouse.js
 
 notes.md
