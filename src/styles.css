@@ -11,7 +11,8 @@
       left: 50%;
       transform: translate(-50%, -50%);
       position: absolute;
-      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges; /* firefox */
+      image-rendering: pixelated; /* chrome */
     }
 
     .text-screen {
