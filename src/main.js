@@ -193,8 +193,6 @@ btns.forEach(btn => {
   const dir = btn.id.split('-')[0];
   btn.addEventListener('touchstart', e => touchstartHandler(e, dir), { passive: false });
   btn.addEventListener('touchend', e => touchendHandler(e, dir), { passive: false })
-  btn.addEventListener("touchcancel", e => console.log('touch cancel'), { passive: false });
-  btn.addEventListener("touchmove", e => console.log('touch move'), { passive: false });
 })
 
 // Keyboard controls
