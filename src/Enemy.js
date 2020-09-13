@@ -81,7 +81,7 @@ export default class Enemy extends GameObject {
       if (thingAbove === FLOOR) this.validDirections.push(UP);
     }
 
-    if (enemyRow < mapHeight - 1) {
+    if (enemyRow < mapHeight - 2) {
       const thingBelow = gameMap[enemyRow + 1][enemyColumn];
 
       if (thingBelow === FLOOR) this.validDirections.push(DOWN)
