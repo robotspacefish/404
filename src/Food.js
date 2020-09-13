@@ -11,9 +11,6 @@ export default class Food extends GameObject {
   }
 
   static spawn() {
-    // TODO handle conditions for spawning
-    // const randIndex = Math.floor(Math.random() * Food.types.length);
-    // Food.types[randIndex](x, y);
     Food.createTaco();
     Food.createDonut();
   }

@@ -87,9 +87,11 @@ export default class GameObject {
     let hit = false;
     let vx = this.centerX - obj.centerX,
       vy = this.centerY - obj.centerY,
-      // subtract 1 from each to give a little leeway with collision
-      combinedHalfWidths = (this.w / 2) - 1 + obj.w / 2,
-      combinedHalfHeights = (this.h / 2) - 1 + obj.h / 2, overlapX, overlapY;
+      overlapX, overlapY;
+
+    // subtract 1 from each to give a little leeway with collision
+    let combinedHalfWidths = (this.w / 2) - 1 + obj.w / 2,
+      combinedHalfHeights = (this.h / 2) - 1 + obj.h / 2;
 
     // if squares overlap on the x axis
     if (Math.abs(vx) < combinedHalfWidths) {
