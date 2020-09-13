@@ -128,7 +128,7 @@ export default class Game {
     });
 
     // keep player out of spawn
-    if (this.player.y < 32) EnemySpawn.all.forEach(s => this.player.handleRectangleCollision(s));
+    EnemySpawn.all.forEach(s => this.player.handleRectangleCollision(s));
 
     if (this.player.x >= 3 * 16 && this.player.x <= 8 * 16 && this.player.y >= 8 * 16 && this.player.y <= 9 * 16) {
       // check when player is within range - check from row above to keep player out of foodcourt
