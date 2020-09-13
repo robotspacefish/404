@@ -6,20 +6,10 @@ let isMobile = !!(navigator.userAgent.toLowerCase().match(/mobile/i) || navigato
 
 const { UP, UP_CARRY, DOWN, DOWN_CARRY, LEFT_SIDE, LEFT_SIDE_CARRY, RIGHT_SIDE, RIGHT_SIDE_CARRY } = playerAnims;
 
-const upBtn = document.getElementById('up-btn');
-const downBtn = document.getElementById('down-btn');
-const leftBtn = document.getElementById('left-btn');
-const rightBtn = document.getElementById('right-btn');
-
+// mobile controls
 const btns = document.querySelectorAll('button');
 
-btns.forEach(btn => {
-  const dir = btn.id.split('-')[0];
-  btn.addEventListener('touchstart', e => touchstartHandler(e, dir), { passive: false });
-  btn.addEventListener('touchend', e => touchendHandler(e, dir), { passive: false })
-  btn.addEventListener("touchcancel", e => console.log('touch cancel'), { passive: false });
-  btn.addEventListener("touchmove", e => console.log('touch move'), { passive: false });
-})
+
 
 function touchstartHandler(e, dir) {
   if (e.cancelable) e.preventDefault();
@@ -47,20 +37,12 @@ function touchendHandler(e, dir) {
   if (dir) handleRelease(e, dir);
 }
 
-const INIT = 1,
-  TITLE = 2,
-  PLAY = 3,
-  GAMEOVER = 4,
-  RESET = 5;
-
-let isPaused = false;
-
 const tilesheet = new Image();
 tilesheet.src = './assets/images/404_spritesheet_compressed.png';
 const bgCtx = document.getElementById('bg').getContext('2d');
 let RAF;
-const game = new Game(document.getElementById('canvas'), isMobile);
 let gameDiv;
+const game = new Game(document.getElementById('canvas'), isMobile);
 const body = document.querySelector('body');
 
 function gameLoop() {
@@ -156,12 +138,6 @@ function getTouchPressed(dir) {
 }
 
 function handlePlay(pressed) {
-  // if (pressed === 'spacebar') {
-  // isPaused = !isPaused;
-  // isPaused ? cancelAnimationFrame(RAF) : RAF = requestAnimationFrame(gameLoop);
-  // console.log(game.debug());
-  // }
-
   // Up upArrow / W / Z
   if (pressed === 'up') {
     game.player.movement.up = true;
