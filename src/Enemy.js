@@ -105,7 +105,7 @@ export default class Enemy extends GameObject {
       const leftOrRightPassage = this.validDirections.includes(LEFT) || this.validDirections.includes(RIGHT);
 
       // change direction if it's at intersection or dead-end
-      if (upOrDownPassage && leftOrRightPassage || this.validDirections.length === 1) {
+      if (upOrDownPassage || leftOrRightPassage || this.validDirections.length === 1) {
 
         // find closest distance to player
         if (player && this.hunt) this.findClosestDirection(player);
