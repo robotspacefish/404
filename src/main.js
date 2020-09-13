@@ -188,40 +188,34 @@ function handlePlay(pressed) {
 }
 
 // EVENT LISTENERS ===============================================
+// Touch controls
+btns.forEach(btn => {
+  const dir = btn.id.split('-')[0];
+  btn.addEventListener('touchstart', e => touchstartHandler(e, dir), { passive: false });
+  btn.addEventListener('touchend', e => touchendHandler(e, dir), { passive: false })
+  btn.addEventListener("touchcancel", e => console.log('touch cancel'), { passive: false });
+  btn.addEventListener("touchmove", e => console.log('touch move'), { passive: false });
+})
+
+// Keyboard controls
 window.addEventListener('keydown', e => {
   let pressed = getKeyPressed(e.keyCode);
-
-  if (game.state === PLAY) {
-    handlePlay(pressed);
-
-  } else {
-    if (pressed === 'spacebar') {
-      handleTextScreen();
-    }
-  }
+  if (game.state === PLAY) handlePlay(pressed);
+  else if (pressed === 'spacebar') handleTextScreen();
 });
 
 window.addEventListener('keyup', e => {
   // Up upArrow / W / Z
-  if (e.keyCode == 38 || e.keyCode == 90 || e.keyCode == 87) {
-    handleRelease(e, 'up');
-  }
+  if (e.keyCode == 38 || e.keyCode == 90 || e.keyCode == 87) handleRelease(e, 'up');
 
   // Right (rightArrow / D)
-  if (e.keyCode == 39 || e.keyCode == 68) {
-    handleRelease(e, 'right');
-  }
+  if (e.keyCode == 39 || e.keyCode == 68) handleRelease(e, 'right');
 
   // Down (downArrow / S)
-  if (e.keyCode == 40 || e.keyCode == 83) {
-    handleRelease(e, 'down');
-
-  }
+  if (e.keyCode == 40 || e.keyCode == 83) handleRelease(e, 'down');
 
   // Left (leftArrow / A / Q)
-  if (e.keyCode == 37 || e.keyCode == 65 || e.keyCode == 81) {
-    handleRelease(e, 'left');
-  }
+  if (e.keyCode == 37 || e.keyCode == 65 || e.keyCode == 81) handleRelease(e, 'left');
 
 });
 
