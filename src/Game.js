@@ -9,8 +9,19 @@ import { playerAnims } from './animations.js';
 import EnemySpawn from './EnemySpawn.js';
 import { mapHeight, mapWidth } from './map.js';
 
-const LOADING = 0,
-  INIT = 1,
+import d from './assets/sounds/die.wav';
+import p from './assets/sounds/pickup.wav';
+import s from './assets/sounds/success.wav';
+
+const success = new Audio(s);
+const pickup = new Audio(p)
+const die = new Audio(d);
+
+function playSound(sound) {
+  sound.play();
+}
+
+const INIT = 1,
   TITLE = 2,
   PLAY = 3,
   GAMEOVER = 4, RESET = 5;
@@ -40,6 +51,8 @@ export default class Game {
 
     this.tick = 0;
     this.intervalId = null;
+
+    this.isColliding = false;
   }
 
   debug() {
@@ -145,6 +158,8 @@ export default class Game {
     // handle player collision with food and carry if holding
     Food.all.forEach(f => {
       if (this.player.isCollidedWithFood(f)) {
+        if (!f.isCarried) playSound(pickup);
+
         if (!this.player.isHolding) {
           f.isCarried = true;
           this.player.isHolding = true;
@@ -159,26 +174,21 @@ export default class Game {
       if (f.isCarried) {
         // hold food above player's head
         f.x = this.player.x + this.player.w / 2 - f.w / 2;
-        f.y = this.player.y - f.h + 2
+        f.y = this.player.y - f.h + 2;
       }
     })
 
 
     Enemy.all.forEach((e, i) => {
       e.update(this.player);
-      const otherEnemies = [...Enemy.all];
-      otherEnemies.splice(i, 1);
-
-      // otherEnemies.forEach(otherEnemy => {
-      //   if (e.handleRectangleCollision(otherEnemy)) {
-      //     // find direction there is a collision
-      //   }
-      // })
 
       // check for collision with player
       if (e.isCollidedAtCenter(this.player)) {
         if (this.player.isHolding && this.player.itemHeld.type === e.want) {
+
+
           // if player has correct food item, kill enemy
+          playSound(success);
           e.kill(i);
           // destroy food
           foodDestroyed = Food.destroy();
@@ -189,6 +199,7 @@ export default class Game {
           this.points++;
         } else {
           // kill player
+          playSound(die);
           this.state = GAMEOVER;
         }
       }
