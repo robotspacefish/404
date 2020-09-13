@@ -1,6 +1,7 @@
 import Game from './Game.js';
 import { playerAnims } from './animations.js';
 import { INIT, TITLE, PLAY, GAMEOVER, RESET } from './helpers';
+
 let isMobile = !!(navigator.userAgent.toLowerCase().match(/mobile/i) || navigator.userAgent.toLowerCase().match(/tablet/i) || navigator.userAgent.toLowerCase().match(/android/i) || navigator.userAgent.toLowerCase().match(/iphone/i) || navigator.userAgent.toLowerCase().match(/ipad/i));
 ;
 
@@ -9,39 +10,13 @@ const { UP, UP_CARRY, DOWN, DOWN_CARRY, LEFT_SIDE, LEFT_SIDE_CARRY, RIGHT_SIDE, 
 // mobile controls
 const btns = document.querySelectorAll('button');
 
-
-
-function touchstartHandler(e, dir) {
-  if (e.cancelable) e.preventDefault();
-  const pressed = getTouchPressed(dir);
-  if (game.state === PLAY) {
-    handlePlay(pressed)
-
-  } else {
-    if (pressed === 'spacebar') {
-      handleTextScreen();
-    }
-  }
-}
-
-function handleTextScreen() {
-  removeTextScreen();
-  game.canvas.style.display = 'block';
-  RAF = requestAnimationFrame(gameLoop);
-  if (game.state === TITLE) game.state = INIT;
-  else if (game.state === GAMEOVER) game.state = RESET;
-}
-
-function touchendHandler(e, dir) {
-  if (e.cancelable) e.preventDefault();
-  if (dir) handleRelease(e, dir);
-}
-
 const tilesheet = new Image();
 tilesheet.src = './assets/images/404_spritesheet_compressed.png';
-const bgCtx = document.getElementById('bg').getContext('2d');
-let RAF;
-let gameDiv;
+
+const bgCtx = document.getElementById('bg').getContext('2d'); // background
+
+let RAF; // requestAnimationFrame
+let gameDiv; // container for text screens
 const game = new Game(document.getElementById('canvas'), isMobile);
 const body = document.querySelector('body');
 
@@ -53,7 +28,7 @@ function gameLoop() {
     document.querySelector('.mobile-controls').classList.add('hide');
 
     game.state === TITLE ?
-      drawText('kill.exe not found', `${isMobile ? 'Tap' : 'Press [SPACEBAR]'} to Start`, instructions()) :
+      drawText('kill.exe not found', `${isMobile ? 'Tap' : 'Press [SPACEBAR]'} to Start`, instructions(isMobile)) :
       drawText('Oops! You\'ve Been Eaten!', `${isMobile ? 'Tap' : 'Press [SPACEBAR]'} to Try Again`, `Final Score: ${game.points}`);
   } else {
     game.update();
@@ -62,6 +37,7 @@ function gameLoop() {
   }
 }
 
+// BACKGROUND SETUP ===============================================
 function buildBackground() {
   for (let i = 0; i < window.innerWidth; i += 32) {
     for (let j = 0; j < window.innerHeight; j += 32) {
@@ -77,6 +53,22 @@ function bgResize() {
   bgCtx.canvas.style.width = "100%";
   bgCtx.canvas.style.height = "100%";
   bgCtx.imageSmoothingEnabled = false; // remove blurring from resizing
+}
+
+
+// TITLE/GAME OVER SCREENS ===============================================
+function removeTextScreen(container, child) {
+  container.removeChild(child)
+}
+
+function instructions(isMobile) {
+  return `
+    You are a defense robot tasked with stopping an alien invasion, but your kill.exe file is missing. In order to get the aliens to leave you have to give them what they want: food!
+
+    Make sure to bring the right food to each alien or the food will be you!
+
+    Controls: ${isMobile ? 'Arrow Buttons' : 'WASD | ZQSD | Arrow Keys'}
+  `;
 }
 
 function drawText(text1, text2, extraText) {
@@ -106,20 +98,16 @@ function drawText(text1, text2, extraText) {
 
 }
 
-function removeTextScreen() {
-  body.removeChild(gameDiv)
+function handleTextScreen() {
+  removeTextScreen(body, gameDiv);
+  game.canvas.style.display = 'block';
+  RAF = requestAnimationFrame(gameLoop);
+  if (game.state === TITLE) game.state = INIT;
+  else if (game.state === GAMEOVER) game.state = RESET;
 }
 
-function instructions() {
-  return `
-    You are a defense robot tasked with stopping an alien invasion, but your kill.exe file is missing. In order to get the aliens to leave you have to give them what they want: food!
 
-    Make sure to bring the right food to each alien or the food will be you!
-
-    Controls: ${isMobile ? 'Arrow Buttons' : 'WASD | ZQSD | Arrow Keys'}
-  `;
-}
-
+// EVENT HANDLERS ===============================================
 function handleRelease(e, dir) {
   if (game.state === PLAY) game.player.movement[dir] = false;
 }
@@ -163,6 +151,24 @@ function handlePlay(pressed) {
   }
 }
 
+function touchendHandler(e, dir) {
+  if (e.cancelable) e.preventDefault();
+  if (dir) handleRelease(e, dir);
+}
+
+function touchstartHandler(e, dir) {
+  if (e.cancelable) e.preventDefault();
+  const pressed = getTouchPressed(dir);
+  if (game.state === PLAY) {
+    handlePlay(pressed)
+
+  } else {
+    if (pressed === 'spacebar') {
+      handleTextScreen();
+    }
+  }
+}
+
 // EVENT LISTENERS ===============================================
 // Touch controls
 btns.forEach(btn => {
@@ -193,6 +199,7 @@ window.addEventListener('keyup', e => {
 
 });
 
+// START ===============================================
 window.addEventListener('load', () => {
   buildBackground();
 
@@ -207,6 +214,5 @@ window.addEventListener('load', () => {
 }, false)
 
 tilesheet.addEventListener('load', () => {
-
   RAF = requestAnimationFrame(gameLoop);
 }, false);
