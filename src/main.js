@@ -31,6 +31,8 @@ function gameLoop() {
       drawText('kill.exe not found', `${isMobile ? 'Tap' : 'Press [SPACEBAR]'} to Start`, instructions(isMobile)) :
       drawText('Oops! You\'ve Been Eaten!', `${isMobile ? 'Tap' : 'Press [SPACEBAR]'} to Try Again`, `Final Score: ${game.points}`);
   } else {
+    window.removeEventListener('touchstart', touchstartHandler, { passive: false });
+    window.removeEventListener('touchend', touchendHandler, { passive: false });
     game.update();
     game.draw(tilesheet);
     RAF = requestAnimationFrame(gameLoop);
