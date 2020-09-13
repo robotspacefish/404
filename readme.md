@@ -2,7 +2,7 @@
 My entry for [JS13k](https://js13kgames.com/) 2020, theme '404'
 
 <center>
-	![screenshot](404_400x250.png)
+	![screenshot](https://github.com/robotspacefish/404/blob/master/404_400x250.png?raw=true)
 </center>
 
 ## Summary
@@ -16,6 +16,6 @@ Make sure to bring the right food to each alien or the food will be you!
 # install dependencies
 > yarn install
 
-# Start server 
+# Start server
 > yarn dev
 ```
