@@ -71,8 +71,8 @@ function gameLoop() {
     document.querySelector('.mobile-controls').classList.add('hide');
 
     game.state === TITLE ?
-      drawText('kill.exe not found', `${isMobile ? 'Tap' : 'Press [SPACE]'} to Start`, instructions()) :
-      drawText('Oops! You\'ve Been Eaten!', `${isMobile ? 'Tap' : 'Press [SPACE]'} to Try Again`, `Final Score: ${game.points}`);
+      drawText('kill.exe not found', `${isMobile ? 'Tap' : 'Press [SPACEBAR]'} to Start`, instructions()) :
+      drawText('Oops! You\'ve Been Eaten!', `${isMobile ? 'Tap' : 'Press [SPACEBAR]'} to Try Again`, `Final Score: ${game.points}`);
   } else {
     game.update();
     game.draw(tilesheet);
