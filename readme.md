@@ -2,7 +2,12 @@
 My entry for [JS13k](https://js13kgames.com/) 2020, theme '404'
 
 <center>
-	![screenshot](https://github.com/robotspacefish/404/blob/master/404_400x250.png?raw=true)
+	<figure>
+		<img  src="./404_400x250.png" alt="screenshot" >
+		<figcaption>
+			Example showing the footer does not reach the bottom of the page. You can't really see that the page continues further down, but trust me it does.
+		</figcaption>
+	</figure>
 </center>
 
 ## Summary
