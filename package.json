@@ -1,14 +1,13 @@
 {
   "name": "404",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "main.js",
   "repository": "git@github.com:robotspacefish/404.git",
   "author": "robotspacefish <9095316+robotspacefish@users.noreply.github.com>",
   "license": "MIT",
   "devDependencies": {
     "parcel-bundler": "^1.12.4",
-    "archiver": "^2.1.1",
-    "parcel-bundler": "^1.9.7"
+    "archiver": "^2.1.1"
   },
   "private": true,
   "scripts": {
