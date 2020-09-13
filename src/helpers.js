@@ -1,10 +1,5 @@
-const gameStates = {
-  LOADING: 0,
-  INIT: 1,
-  TITLE: 2,
-  PLAYING: 3,
-  GAMEOVER: 4
-
-}
-export { gameStates };
-
+export const INIT = 1,
+  TITLE = 2,
+  PLAY = 3,
+  GAMEOVER = 4
+  ;

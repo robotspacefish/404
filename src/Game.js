@@ -8,11 +8,11 @@ import Enemy from './Enemy.js';
 import { playerAnims } from './animations.js';
 import EnemySpawn from './EnemySpawn.js';
 import { mapHeight, mapWidth } from './map.js';
+import { INIT, TITLE, PLAY, GAMEOVER, RESET } from './helpers';
 
 import d from './assets/sounds/die.wav';
 import p from './assets/sounds/pickup.wav';
 import s from './assets/sounds/success.wav';
-
 const success = new Audio(s);
 const pickup = new Audio(p)
 const die = new Audio(d);
@@ -21,10 +21,6 @@ function playSound(sound) {
   sound.play();
 }
 
-const INIT = 1,
-  TITLE = 2,
-  PLAY = 3,
-  GAMEOVER = 4, RESET = 5;
 
 export default class Game {
   constructor(canvas, isMobile) {

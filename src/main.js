@@ -1,6 +1,6 @@
 import Game from './Game.js';
 import { playerAnims } from './animations.js';
-
+import { INIT, TITLE, PLAY, GAMEOVER, RESET } from './helpers';
 let isMobile = !!(navigator.userAgent.toLowerCase().match(/mobile/i) || navigator.userAgent.toLowerCase().match(/tablet/i) || navigator.userAgent.toLowerCase().match(/android/i) || navigator.userAgent.toLowerCase().match(/iphone/i) || navigator.userAgent.toLowerCase().match(/ipad/i));
 ;
 
