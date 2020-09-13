@@ -3,6 +3,13 @@ import { playerAnims } from './animations.js';
 import { INIT, TITLE, PLAY, GAMEOVER, RESET } from './helpers';
 import t from './assets/images/404_spritesheet_compressed.png';
 
+import d from './assets/sounds/die.wav';
+import p from './assets/sounds/pickup.wav';
+import s from './assets/sounds/success.wav';
+export const success = new Audio(s);
+export const pickup = new Audio(p)
+export const die = new Audio(d);
+
 let isMobile = !!(navigator.userAgent.toLowerCase().match(/mobile/i) || navigator.userAgent.toLowerCase().match(/tablet/i) || navigator.userAgent.toLowerCase().match(/android/i) || navigator.userAgent.toLowerCase().match(/iphone/i) || navigator.userAgent.toLowerCase().match(/ipad/i));
 ;
 
@@ -210,6 +217,11 @@ window.addEventListener('load', () => {
 
   game.resize();
   bgResize();
+
+  // load sounds?
+  success.load();
+  pickup.load();
+  die.load();
 
   window.addEventListener('resize', () => {
     game.resize();

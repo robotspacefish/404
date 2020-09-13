@@ -9,13 +9,8 @@ import { playerAnims } from './animations.js';
 import EnemySpawn from './EnemySpawn.js';
 import { mapHeight, mapWidth } from './map.js';
 import { INIT, TITLE, PLAY, GAMEOVER, RESET } from './helpers';
+import { success, pickup, die } from './main.js'
 
-import d from './assets/sounds/die.wav';
-import p from './assets/sounds/pickup.wav';
-import s from './assets/sounds/success.wav';
-const success = new Audio(s);
-const pickup = new Audio(p)
-const die = new Audio(d);
 
 function playSound(sound) {
   sound.play();
