@@ -54,22 +54,6 @@ export default class GameObject {
     console.log(GameObject.all)
   }
 
-  get left() {
-    return this.x;
-  }
-
-  get right() {
-    return this.x + this.w;
-  }
-
-  get top() {
-    return this.y;
-  }
-
-  get bottom() {
-    return this.y + this.h;
-  }
-
   get centerX() {
     return this.x + this.w / 2;
   }
