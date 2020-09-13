@@ -23,7 +23,7 @@ export default class Enemy extends GameObject {
 
     this.validDirections = [];
     this.direction = NONE;
-    this.hunt = Math.random() >= 0.25 ? true : false;
+    this.hunt = Math.random() >= 0.45 ? true : false;
 
     this.want;
 
@@ -68,6 +68,7 @@ export default class Enemy extends GameObject {
   }
 
   changeDirection(player) {
+    // debugger
     // clear previous direction
     this.validDirections = [];
     this.direction = NONE;
@@ -135,7 +136,6 @@ export default class Enemy extends GameObject {
   update(player) {
     this.x += this.vx;
     this.y += this.vy;
-
     if (this.isAtTileCorner()) this.changeDirection(player);
     this.animate();
   }
