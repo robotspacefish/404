@@ -68,7 +68,6 @@ export default class Enemy extends GameObject {
   }
 
   changeDirection(player) {
-    // debugger
     // clear previous direction
     this.validDirections = [];
     this.direction = NONE;

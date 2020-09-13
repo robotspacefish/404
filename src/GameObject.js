@@ -1,9 +1,8 @@
-const NUM_OF_FRAMES = 2;
-
-const TICK_CAP = 12;
+const NUM_OF_FRAMES = 2, TICK_CAP = 12;
 
 export default class GameObject {
   static all = [];
+
   constructor(srcX, srcY, srcW, srcH, x, y, w = 16, h = 16, type, currentAnim = null) {
     this.srcX = srcX;
     this.srcY = srcY;
@@ -21,8 +20,27 @@ export default class GameObject {
     GameObject.all.push(this);
   }
 
+  static remove(objToDelete) {
+    GameObject.all = GameObject.all.filter(gameObj => {
+      return JSON.stringify(gameObj) !== JSON.stringify(objToDelete);
+    });
+  }
+
+  static clearAllExceptPlayer() {
+    GameObject.all = [GameObject.all.find(o => o.type === 'player')]
+    console.log(GameObject.all)
+  }
+
   get frameRate() {
     return 1000 / this.fps;
+  }
+
+  get centerX() {
+    return this.x + this.w / 2;
+  }
+
+  get centerY() {
+    return this.y + this.w / 2;
   }
 
   advanceFrame() {
@@ -41,25 +59,6 @@ export default class GameObject {
       this.advanceFrame();
       this.tick = 0;
     }
-  }
-
-  static remove(objToDelete) {
-    GameObject.all = GameObject.all.filter(gameObj => {
-      return JSON.stringify(gameObj) !== JSON.stringify(objToDelete);
-    });
-  }
-
-  static clearAllExceptPlayer() {
-    GameObject.all = [GameObject.all.find(o => o.type === 'player')]
-    console.log(GameObject.all)
-  }
-
-  get centerX() {
-    return this.x + this.w / 2;
-  }
-
-  get centerY() {
-    return this.y + this.w / 2;
   }
 
   isCollidedAtCenter(obj) {

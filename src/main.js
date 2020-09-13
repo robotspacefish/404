@@ -5,6 +5,13 @@ import { INIT, TITLE, PLAY, GAMEOVER, RESET } from './helpers';
 let isMobile = !!(navigator.userAgent.toLowerCase().match(/mobile/i) || navigator.userAgent.toLowerCase().match(/tablet/i) || navigator.userAgent.toLowerCase().match(/android/i) || navigator.userAgent.toLowerCase().match(/iphone/i) || navigator.userAgent.toLowerCase().match(/ipad/i));
 ;
 
+let RAF; // requestAnimationFrame
+
+let gameDiv; // container for text screens
+const game = new Game(document.getElementById('canvas'), isMobile);
+const body = document.querySelector('body');
+const bgCtx = document.getElementById('bg').getContext('2d'); // background
+
 const { UP, UP_CARRY, DOWN, DOWN_CARRY, LEFT_SIDE, LEFT_SIDE_CARRY, RIGHT_SIDE, RIGHT_SIDE_CARRY } = playerAnims;
 
 // mobile controls
@@ -13,13 +20,8 @@ const btns = document.querySelectorAll('button');
 const tilesheet = new Image();
 tilesheet.src = './assets/images/404_spritesheet_compressed.png';
 
-const bgCtx = document.getElementById('bg').getContext('2d'); // background
 
-let RAF; // requestAnimationFrame
-let gameDiv; // container for text screens
-const game = new Game(document.getElementById('canvas'), isMobile);
-const body = document.querySelector('body');
-
+// MAIN GAME LOOP ===============================================
 function gameLoop() {
   if (game.state === TITLE || game.state === GAMEOVER) {
     cancelAnimationFrame(RAF);

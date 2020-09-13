@@ -39,7 +39,7 @@ export default class Game {
     this.maxWidth = this.width * 3;
     this.maxHeight = this.height * 3;
 
-
+    // visual
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
     this.canvas.height = this.height;
@@ -47,16 +47,6 @@ export default class Game {
 
     this.tick = 0;
     this.intervalId = null;
-
-    this.isColliding = false;
-  }
-
-  debug() {
-    // console.log(this);
-    // // console.log(GameObject.all);
-    // Food.all.forEach((f, i) => console.log(`${i} ${f.type} isCarried: ${f.isCarried}`))
-    // console.log(FoodCourt.all)
-    console.log(Enemy.all)
   }
 
   init() {
