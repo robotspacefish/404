@@ -59,7 +59,6 @@ export default class GameMap {
     let ts = this.tileSize;
     this.cells.forEach(cell => {
       if (cell.type !== 'wall') {
-        ctx.globalAlpha = 1;
         ctx.drawImage(
           tilesheet, cell.srcX, cell.srcY, ts, ts,
           cell.x, cell.y, ts, ts
