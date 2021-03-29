@@ -1,4 +1,5 @@
 import GameObject from './GameObject.js';
+import { alignToGrid } from './helpers';
 
 export default class Player extends GameObject {
   constructor(srcX, srcY, srcW, srcH, x, y, w, h, type, currentAnim) {
@@ -28,17 +29,23 @@ export default class Player extends GameObject {
   }
 
   update(height, width) {
+    const SIZE = 16;
+
     if (this.movement.right && !this.movement.left) {
       this.vx = this.acceleration;
+      this.y += alignToGrid(this.y, SIZE);
     }
     if (this.movement.left && !this.movement.right) {
       this.vx = -this.acceleration;
+      this.y += alignToGrid(this.y, SIZE);
     }
     if (this.movement.down && !this.movement.up) {
       this.vy = this.acceleration;
+      this.x += alignToGrid(this.x, SIZE);
     }
     if (this.movement.up && !this.movement.down) {
       this.vy = -this.acceleration;
+      this.x += alignToGrid(this.x, SIZE);
     }
 
     if (!this.movement.up && !this.movement.down) this.vy = 0;
